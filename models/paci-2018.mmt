@@ -1,0 +1,570 @@
+[[model]]
+name: paci-2018
+display_name: Paci et al., 2018
+version: 20210825
+mmt_authors: Michael Clerx
+desc: """
+    Myokit version of the 2018 hIPSC model by Paci et al. [1].
+
+    This implementation is based on the original Matlab code provided by the
+    authors [2]. It was verified against the original code by comparing the
+    calculated derivatives.
+
+    In this implementation, units have been converted from V to mV, and s to
+    ms. In addition, the capacitance has been converted to pF and two cell
+    volumes have been converted to pL, which removes a few scaling factors
+    from the equations.
+
+    References:
+
+    [1] Automatic Optimization of an in Silico Model of Human iPSC Derived
+        Cardiomyocytes Recapitulating Calcium Handling Abnormalities
+        Michelangelo Paci, Risto-Pekka Pölönen, Dario Cori, Kirsi Penttinen,
+        Katriina Aalto-Setälä, Stefano Severi, and Jari Hyttinen
+        Frontiers in Physiology, 2018, Vol. 9, Page 709
+        https://doi.org/10.3389/fphys.2018.00709
+
+    [2] https://www.mcbeng.it/en/downloads/software/paci2018.html
+
+    License:
+
+    The original Matlab code comes with a license, which extends to this
+    implementation.
+
+    This software is provided for NON-COMMERCIAL USE ONLY.
+    It is free to use "in non-commercial settings: at academic institutions for
+    eaching and research use, and at not-for-profit research organizations."
+
+    But "if you intend to use the software implementation of the Paci2018 model
+    in a "for-profit" environment, where the software implementation of the
+    Paci2018 model simulations are conducted to develop or enhance a product
+    (including commercial or industry-sponsored research at academic
+    institutions), or to use the software implementation of the Paci2018 model
+    in a commercial service offering, then you need to obtain a license
+    extension for the software implementation of the Paci2018 model. In that
+    case, please contact inventions@tuni.fi."
+
+    Please consult the link below for the full license text:
+
+    https://www.mcbeng.it/en/downloads/software/paci2018.html
+    
+    Or see: Academic_public_license_Paci2018.txt
+"""
+# Initial state
+membrane.V   = -70
+calcium.CaSR = 0.32
+calcium.Cai  = 0.0002
+sodium.Nai   = 9.2
+ical.d       = 0
+ical.f1      = 1
+ical.f2      = 1
+ical.fCa     = 1
+ikr.xr1      = 0
+ikr.xr2      = 1
+iks.xs       = 0
+ina.m        = 0
+ina.h        = 0.75
+ina.j        = 0.75
+inal.mL      = 0
+inal.hL      = 0.75
+if.xf        = 0.1
+ito.q        = 1
+ito.r        = 0
+irel.a       = 0.3
+irel.o       = 0.9
+irel.c       = 0.1
+
+[engine]
+time = 0 [ms]
+    in [ms]
+    bind time
+pace = 0
+    bind pace
+
+#
+# Stimulus current
+#
+[stimulus]
+i_stim = engine.pace * amplitude / cell.Cm
+    in [A/F]
+amplitude = -750 [pA]
+    in [pA]
+# Amplitude was -550 in 2013 model
+
+#
+# Membrane potential
+#
+[membrane]
+dot(V) = -(i_ion + stimulus.i_stim)
+    in [mV]
+    label membrane_potential
+i_ion = (+ ik1.IK1 + ikr.IKr + iks.IKs + ito.Ito + if.If
+         + ina.INa + inal.INaL + ibna.IbNa
+         + ical.ICaL + ipca.IpCa + ibca.IbCa
+         + inak.INaK
+         + inaca.INaCa
+        )
+    in [A/F]
+# INaL did not appear in 2013 model
+# If_Na does not appear above ? It does appear in the Nai update
+
+#
+# Cell size
+#
+[cell]
+Cm = 98.7109 [pF]
+    in [pF]
+V_SR = 0.58373 [pL]
+    in [pL]
+Vc = 8.8 [pL]
+    in [pL]
+
+#
+# Physical constants
+#
+[phys]
+R = 8314.472 [mJ/mol/K]
+    in [mJ/mol/K]
+T = 310 [K]
+    in [K]
+F = 96485.3415 [C/mol]
+    in [C/mol]
+RTF = R * T / F
+    in [mV]
+FRT = F / R / T
+    in [1/mV]
+
+#
+# Reversal potentials
+#
+[rev]
+use phys.RTF
+ECa = 0.5 * RTF * log(extra.Cao / calcium.Cai)
+    in [mV]
+EK = RTF * log(extra.Ko / potassium.Ki)
+    in [mV]
+EKs = RTF * log((extra.Ko + PkNa * extra.Nao) / (potassium.Ki + PkNa * sodium.Nai))
+    in [mV]
+ENa = RTF * log(extra.Nao / sodium.Nai)
+    in [mV]
+PkNa = 0.03
+
+#
+# L-type calcium current
+#
+[ical]
+use membrane.V
+use phys.F, phys.FRT
+use calcium.Cai, extra.Cao
+dot(d) = (inf - d) / tau
+    inf = 1 / (1 + exp(-(V + 9.1 [mV]) / 7 [mV]))
+    a = 0.25 + 1.4 / (1 + exp((-V - 35 [mV]) / 13 [mV]))
+    b = 1.4 [ms] / (1 + exp((V + 5 [mV]) / 5 [mV]))
+        in [ms]
+    c = 1 [ms] / (1 + exp((-V + 50 [mV]) / 20 [mV]))
+        in [ms]
+    tau = a * b + c
+        in [ms]
+dot(f1) = (inf - f1) / tau
+    inf = 1 / (1 + exp((V + 26 [mV]) / 3 [mV]))
+    tau = (20 [ms]
+           + 1102.5 [ms] * exp(-((V + 27 [mV])^2 / 15 [mV^2])^2)
+           + 200 [ms] / (1 + exp((13 [mV] - V) / 10 [mV]))
+           + 180 [ms] / (1 + exp((30 [mV] + V) / 10 [mV]))
+          ) * c
+        in [ms]
+    c = if(inf > f1, 1 + 1433 [1/mM] * (Cai - 50e-6 [mM]), 1)
+dot(f2) = (inf - f2) / tau
+    # 32 [mV] was 35 [mV] in 2013 model
+    inf = 0.33 + 0.67 / (1 + exp((V + 32 [mV]) / 4 [mV]))
+    tau = (600 [ms] * exp(-(V + 25 [mV])^2 / 170 [mV^2])
+           + 31 [ms] / (1 + exp((25 [mV] - V) / 10 [mV]))
+           + 16 [ms] / (1 + exp((30 [mV] + V) / 10 [mV]))
+          )
+        in [ms]
+dot(fCa) = (inf - fCa) / tau
+    inf = (a + b + c) / 1.3156
+    a = 1 / (1 + (Cai / 0.0006 [mM])^8)
+    b = 0.1 / (1 + exp((Cai - 0.0009 [mM]) / 0.0001 [mM]))
+    c = 0.3 / (1 + exp((Cai - 0.00075 [mM]) / 0.0008 [mM]))
+    tau = 2 [ms] / e
+        in [ms]
+    e = if(V > -60 [mV] and inf > fCa, 0, 1)
+P_CaL = 8.635702e-5 [L/F/ms]
+    in [L/F/ms]
+ICaL = P_CaL * d * f1 * f2 * fCa * if(V != 0 [mV], b, c)
+    in [A/F]
+    b = 4 * V * F * FRT * (Cai * exp(2 * V * FRT) - 0.341 * Cao) / (exp(2 * V * FRT) - 1)
+        in [mM*C/mol]
+    c = 2 * F * (Cai - 0.341 * Cao)
+        in [mM*C/mol]
+
+#
+# IK1
+#
+[ik1]
+use membrane.V
+use rev.EK, extra.Ko
+inf = alpha / (alpha + beta)
+    alpha = 3.91 / (1 + exp(0.5942 [1/mV] * (V - EK - 200 [mV])))
+    beta = (-1.509 * exp(0.0002 [1/mV] * (V - EK + 100 [mV])) + exp(0.5886 [1/mV] * (V - EK - 10 [mV]))) / (1 + exp(0.4547 [1/mV] * (V - EK)))
+g = 0.0281492 [mS/uF]
+    in [mS/uF]
+IK1 = g * sqrt(Ko / 5.4 [mM]) * inf * (V - EK)
+    in [A/F]
+
+#
+# IKr
+#
+[ikr]
+use extra.Cao, extra.Ko
+use membrane.V
+dot(xr1) = (inf - xr1) / tau
+    L0 = 0.025
+    Q = 2.3
+    V_half = -phys.RTF / Q * log((1 + Cao / 2.6 [mM])^4 / (L0 * (1 + Cao / 0.58 [mM])^4)) - 19 [mV]
+        in [mV]
+    inf = 1 / (1 + exp((V_half - V) / 4.9 [mV]))
+    alpha = 450 [ms] / (1 + exp((-45 [mV] - V) / 10 [mV]))
+        in [ms]
+    beta = 6 / (1 + exp((30 [mV] + V) / 11.5 [mV]))
+    tau = alpha * beta
+        in [ms]
+dot(xr2) = (inf - xr2) / tau
+    inf = 1 / (1 + exp((V + 88 [mV]) / 50 [mV]))
+    alpha = 3 [ms] / (1 + exp((-60 [mV] - V) / 20 [mV]))
+        in [ms]
+    beta = 1.12 / (1 + exp((-60 [mV] + V) / 20 [mV]))
+    tau = alpha * beta
+        in [ms]
+g = 0.0298667 [mS/uF]
+    in [mS/uF]
+IKr = g * sqrt(Ko / 5.4 [mM]) * xr1 * xr2 * (V - rev.EK)
+    in [A/F]
+
+#
+# IKs
+#
+[iks]
+use membrane.V
+dot(xs) = (inf - xs) / tau
+    inf = 1 / (1 + exp((-V - 20 [mV]) / 16 [mV]))
+    alpha = 1100 [ms] / sqrt(1 + exp((-10 [mV] - V) / 6 [mV]))
+        in [ms]
+    beta = 1 / (1 + exp((-60 [mV] + V) / 20 [mV]))
+    tau = alpha * beta
+        in [ms]
+g = 0.002041 [mS/uF]
+    in [mS/uF]
+k = 1 + 0.6 / (1 + (3.8e-5 [mM] / calcium.Cai)^1.4)
+IKs = g * xs^2 * k * (V - rev.EKs)
+    in [A/F]
+
+#
+# Funny current, haha!
+#
+[if]
+use membrane.V
+dot(xf) = (inf - xf) / tau
+    inf = 1 / (1 + exp((V + 77.85 [mV]) / 5 [mV]))
+    tau = 1900 [ms] / (1 + exp((V + 15 [mV]) / 10 [mV]))
+        in [ms]
+E = -17 [mV]
+    in [mV]
+g = 0.03010312 [mS/uF]
+    in [mS/uF]
+If = g * xf * (V - E)
+    in [A/F]
+# If_Na was added in 2018 model
+If_Na = 0.42 * g * xf * (V - rev.ENa)
+    in [A/F]
+
+#
+# Ito
+#
+[ito]
+use membrane.V
+dot(q) = (inf - q) / tau
+    inf = 1 / (1 + exp((V + 53 [mV]) / 13 [mV]))
+    tau = 6.06 [ms] + 39.102 [ms] / (
+            0.57 * exp(-0.08 [1/mV] * (V + 44 [mV]))
+            + 0.065 * exp(0.1 [1/mV] * (V + 45.93 [mV]))
+          )
+        in [ms]
+dot(r) = (inf - r) / tau
+    inf = 1 / (1 + exp(-(V - 22.3 [mV]) / 18.75 [mV]))
+    tau = 2.75352 [ms] + 14.40516 [ms] / (1.037 * exp(0.09 [1/mV] * (V + 30.61 [mV])) + 0.369 * exp(-0.12 [1/mV] * (V + 23.84 [mV])))
+        in [ms]
+g = 0.0299038 [mS/uF]
+    in [mS/uF]
+Ito = g * q * r * (V - rev.EK)
+    in [A/F]
+
+#
+# INa
+#
+[ina]
+use membrane.V
+dot(m) = (inf - m) / tau
+    inf = 1 / (1 + exp((-V - 34.1 [mV]) / 5.9 [mV]))^(1 / 3)
+    alpha = 1 [ms] / (1 + exp((-V - 60 [mV]) / 5 [mV]))
+        in [ms]
+    beta = 0.1 / (1 + exp((V + 35 [mV]) / 5 [mV])) + 0.1 / (1 + exp((V - 50 [mV]) / 200 [mV]))
+    tau = alpha * beta
+        in [ms]
+dot(h) = (inf - h) / tau
+    inf = 1 / sqrt(1 + exp((V + 72.1 [mV]) / 5.7 [mV]))
+    # Alpha and beta had an if-statement around V=-0.04 in 2013; only the negative branch remains here.
+    alpha = 0.057 [1/ms] * exp(-(V + 80 [mV]) / 6.8 [mV])
+        in [1/ms]
+    beta = 2.7 [1/ms] * exp(0.079 [1/mV] * V) + 3.1 [1/ms] * 1e5 * exp(0.3485 [1/mV] * V)
+        in [1/ms]
+    # Tau in 2013 switched around V < -40
+    tau = if(V < -38.5 [mV], 1 / (alpha + beta), 1.6947 [ms]) * 1.5
+        in [ms]
+dot(j) = (inf - j) / tau
+    inf = 1 / sqrt(1 + exp((V + 72.1 [mV]) / 5.7 [mV]))
+    alpha = if(V < -40 [mV],
+               (-25428 [1/ms/mV] * exp(0.2444 [1/mV] * V)
+                -6.948 [1/ms/mV] * 1e-6 * exp(-0.04391 [1/mV] * V)
+               ) * (V + 37.78 [mV]) / (1 + exp(0.311 [1/mV] * (V + 79.23 [mV]))),
+               0 [1/ms])
+        in [1/ms]
+    beta = if(V < -40 [mV],
+              0.02424 [1/ms] * exp(-0.01052 [1/mV] * V) / (1 + exp(-0.1378 [1/mV] * (V + 40.14 [mV]))),
+              0.6 [1/ms] * exp(0.057 [1/mV] * V) / (1 + exp(-0.1 [1/mV] * (V + 32 [mV])))
+             )
+        in [1/ms]
+    tau = 7 / (alpha + beta)
+        in [ms]
+g = 3.6712302 [mS/uF]
+    in [mS/uF]
+INa = g * m^3 * h * j * (V - rev.ENa)
+    in [A/F]
+
+#
+# INaL
+# INaL was added in the 2018 model
+#
+[inal]
+use membrane.V
+dot(mL) = (inf - mL) / tau
+    inf = 1 / (1 + exp(-(V + 42.85 [mV]) / 5.264 [mV]))
+    alpha = 1 [ms] / (1 + exp((-60 [mV] - V) / 5 [mV]))
+        in [ms]
+    beta = 0.1 / (1 + exp((V + 35 [mV]) / 5 [mV])) + 0.1 / (1 + exp((V - 50 [mV]) / 200 [mV]))
+    tau = alpha * beta
+        in [ms]
+dot(hL) = (inf - hL) / tau
+    inf = 1 / (1 + exp((V + 87.61 [mV]) / 7.488 [mV]))
+    tau = 200 [ms]
+        in [ms]
+g = 2.3e-3 * 7.5 [mS/uF]
+    in [mS/uF]
+INaL = g * mL^3 * hL * (V - rev.ENa)
+    in [A/F]
+
+#
+# INaCa
+#
+[inaca]
+use membrane.V
+use phys.FRT
+use sodium.Nai, extra.Nao
+use calcium.Cai, extra.Cao
+KmCa = 1.38 [mM]
+    in [mM]
+KmNai = 87.5 [mM]
+    in [mM]
+Ksat = 0.1
+# Alpha was 2.8571432 in 2013
+alpha = 2.5371
+gamma = 0.35
+# kNaCa was 4900 in 2013
+kNaCa = 3917.0463 [A/F]
+    in [A/F]
+INaCa = kNaCa * numer / denom
+    in [A/F]
+    numer = exp(gamma * V * FRT) * Nai^3 * Cao - exp((gamma - 1) * V * FRT) * Nao^3 * Cai * alpha
+        in [mM^4]
+    denom = (KmNai^3 + Nao^3) * (KmCa + Cao) * (1 + Ksat * exp((gamma - 1) * V * FRT))
+        in [mM^4]
+
+#
+# INaK
+#
+[inak]
+use membrane.V
+use extra.Ko, sodium.Nai
+use phys.FRT
+Km_K = 1 [mM]
+    in [mM]
+Km_Na = 40 [mM]
+    in [mM]
+# PNaK was 1.841424 in 2013
+PNaK = 2.6351 [A/F]
+    in [A/F]
+INaK = PNaK * Ko / (Ko + Km_K) * Nai / (Nai + Km_Na) / (1 + 0.1245 * exp(-0.1 * V * FRT) + 0.0353 * exp(-V * FRT))
+    in [A/F]
+
+#
+# IpCa
+#
+[ipca]
+KPCa = 0.0005 [mM]
+    in [mM]
+g = 0.4125 [A/F]
+    in [A/F]
+IpCa = g * calcium.Cai / (calcium.Cai + KPCa)
+    in [A/F]
+
+#
+# Background calcium current
+#
+[ibca]
+# g was 6.9264e-4 in 2013
+g = 7.27272e-4 [mS/uF]
+    in [mS/uF]
+IbCa = g * (membrane.V - rev.ECa)
+    in [A/F]
+
+#
+# Background sodium current
+#
+[ibna]
+# g was 9e-4 in 2013
+g = 9.5e-4 [mS/uF]
+    in [mS/uF]
+IbNa = g * (membrane.V - rev.ENa)
+    in [A/F]
+
+#
+# Internal potassium concentration
+#
+[potassium]
+Ki = 150 [mM]
+    in [mM]
+
+#
+# Internal sodium concentration
+#
+[sodium]
+use cell.Cm, cell.Vc, phys.F
+dot(Nai) = -(ina.INa + inal.INaL + ibna.IbNa + 3 * inak.INaK + 3 * inaca.INaCa + if.If_Na) * Cm / (F * Vc)
+    in [mM]
+
+#
+# Ryanodine release receptors
+# This is a completely different formulation than in the 2013 model.
+#
+[irel]
+use calcium.Cai, calcium.CaSR
+dot(a) = (inf - a) / 1000 [ms]
+    in [uM]
+    inf = a1 - a2 / (1 + exp((1000 [uM/mM] * Cai - ahalf) / 0.0082 [uM]))
+        in [uM]
+    a1 = 0.05354 [uM]
+        in [uM]
+    a2 = 0.0488 [uM]
+        in [uM]
+    ahalf = 0.02427 [uM]
+        in [uM]
+dot(o) = (inf - o) / tau
+    inf = 1 - 1 / (1 + exp((1000 [uM/mM] * Cai - (a + ohalf)) / 0.003 [uM]))
+    tau = if(o < inf, 1, 0.1) * 18.75 [ms]
+        in [ms]
+    ohalf = 0.01042 [uM]
+        in [uM]
+dot(c) = (inf - c) / tau
+    inf = 1 / (1 + exp((1000 [uM/mM] * Cai - (a + chalf)) / 0.001 [uM]))
+    tau = if(c < inf, 2, 1) * 87.5 [ms]
+        in [ms]
+    chalf = 0.00144 [uM]
+        in [uM]
+SRCass = 1 - 1 / (1 + exp((CaSR - 0.3 [mM]) / 0.1 [mM]))
+g_max = 0.0625434 [1/ms]
+    in [1/ms]
+i_rel = g_max * SRCass * o * c * (CaSR - Cai)
+    in [mM/ms]
+
+#
+# Ca uptake into SR
+#
+[iup]
+use calcium.Cai
+# Kup was 2.5e-4 in 2013
+Kup = 3.1928e-4 [mM]
+    in [mM]
+# VmaxUp was 5.6064e-4 in 2013
+VmaxUp = 5.113e-4 [mM/ms]
+    in [mM/ms]
+i_up = VmaxUp / (1 + Kup^2 / Cai^2)
+    in [mM/ms]
+
+#
+# Ca leak from SR
+#
+[ileak]
+use calcium.Cai, calcium.CaSR
+# V_leak was 4.4444e-7 in 2013
+V_leak = 4.7279e-7 [1/ms]
+    in [1/ms]
+i_leak = (CaSR - Cai) * V_leak
+    in [mM/ms]
+
+#
+# Internal calcium concentrations
+#
+[calcium]
+use membrane.V
+use cell.Vc, cell.V_SR
+use iup.i_up, irel.i_rel, ileak.i_leak
+Buf_C = 0.25 [mM]
+    in [mM]
+Buf_SR = 10 [mM]
+    in [mM]
+Kbuf_C = 0.001 [mM]
+    in [mM]
+Kbuf_SR = 0.3 [mM]
+    in [mM]
+CaSR_bufSR = 1 / (1 + Buf_SR * Kbuf_SR / (CaSR + Kbuf_SR)^2)
+Cai_bufc = 1 / (1 + Buf_C * Kbuf_C / (Cai + Kbuf_C)^2)
+dot(CaSR) = CaSR_bufSR * (Vc / V_SR) * (i_up - i_rel - i_leak)
+    in [mM]
+dot(Cai) = Cai_bufc * (i_leak - i_up + i_rel - (ical.ICaL + ibca.IbCa + ipca.IpCa - 2 * inaca.INaCa) * cell.Cm / (2 * Vc * phys.F))
+    in [mM]
+
+#
+# Extracellular concentrations
+#
+[extra]
+Cao = 1.8 [mM]
+    in [mM]
+Nao = 151 [mM]
+    in [mM]
+Ko = 5.4 [mM]
+    in [mM]
+
+[[protocol]]
+# Level  Start    Length   Period   Multiplier
+1        0        5        1000     0
+
+[[script]]
+import matplotlib.pyplot as plt
+import myokit
+
+# Get model and protocol, create simulation
+m = get_model()
+p = get_protocol()
+s = myokit.Simulation(m, p)
+
+# Run simulation
+d = s.run(1000)
+
+# Display the results
+plt.figure()
+plt.xlabel('Time (ms)')
+plt.ylabel('Membrane potential (mV)')
+plt.plot(d.time(), d['membrane.V'])
+plt.show()
+
