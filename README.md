@@ -224,6 +224,10 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 - [Simulation test case: PK model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/tC-test-case-pk-model.ipynb)
 - [Autodiff simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/tZ-autodiff.ipynb)
 
+## Contributors
+
+These examples and technical notebooks were created by Michael Clerx, with contributions from David Augustin, and feedback from several others.
+
 ## License and re-use
 
 Please:
