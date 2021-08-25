@@ -102,7 +102,6 @@ i_ion = (+ ik1.IK1 + ikr.IKr + iks.IKs + ito.Ito + if.If
         )
     in [A/F]
 # INaL did not appear in the 2013 model
-# If_Na does not appear above ? It does appear in the Nai update
 
 #
 # Cell size
@@ -278,8 +277,12 @@ g = 30.10312 [S/F]
     in [S/F]
 If = g * xf * (V - E)
     in [A/F]
+    desc: The total If current (K and Na components)
 # If_Na was added in the 2018 model
 If_Na = 0.42 * g * xf * (V - rev.ENa)
+    in [A/F]
+# If_K is added for clarification
+If_K = If - If_Na
     in [A/F]
 
 #

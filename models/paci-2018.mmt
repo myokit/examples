@@ -47,7 +47,7 @@ desc: """
     Please consult the link below for the full license text:
 
     https://www.mcbeng.it/en/downloads/software/paci2018.html
-    
+
     Or see: Academic_public_license_Paci2018.txt
 """
 # Initial state
@@ -89,7 +89,7 @@ i_stim = engine.pace * amplitude / cell.Cm
     in [A/F]
 amplitude = -750 [pA]
     in [pA]
-# Amplitude was -550 in 2013 model
+# Amplitude was -550 in the 2013 model
 
 #
 # Membrane potential
@@ -105,8 +105,7 @@ i_ion = (+ ik1.IK1 + ikr.IKr + iks.IKs + ito.Ito + if.If
          + inaca.INaCa
         )
     in [A/F]
-# INaL did not appear in 2013 model
-# If_Na does not appear above ? It does appear in the Nai update
+# INaL did not appear in the 2013 model
 
 #
 # Cell size
@@ -175,7 +174,7 @@ dot(f1) = (inf - f1) / tau
         in [ms]
     c = if(inf > f1, 1 + 1433 [1/mM] * (Cai - 50e-6 [mM]), 1)
 dot(f2) = (inf - f2) / tau
-    # 32 [mV] was 35 [mV] in 2013 model
+    # 32 [mV] was 35 [mV] in the 2013 model
     inf = 0.33 + 0.67 / (1 + exp((V + 32 [mV]) / 4 [mV]))
     tau = (600 [ms] * exp(-(V + 25 [mV])^2 / 170 [mV^2])
            + 31 [ms] / (1 + exp((25 [mV] - V) / 10 [mV]))
@@ -275,8 +274,12 @@ g = 0.03010312 [mS/uF]
     in [mS/uF]
 If = g * xf * (V - E)
     in [A/F]
-# If_Na was added in 2018 model
+    desc: The total If current (K and Na components)
+# If_Na was added in the 2018 model
 If_Na = 0.42 * g * xf * (V - rev.ENa)
+    in [A/F]
+# If_K is added for clarification
+If_K = If - If_Na
     in [A/F]
 
 #
