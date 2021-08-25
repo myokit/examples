@@ -1,6 +1,6 @@
 [[model]]
 name: paci-2013-ventricular-vs
-version: 20210819
+version: 20210825
 mmt_authors: Michael Clerx
 desc: """
     Myokit version of the 2013 hiPSC model by Paci et al., ventricular version
@@ -145,7 +145,7 @@ dot(f1) = (inf - f1) / tau
 dot(f2) = (inf - f2) / tau
     inf = 0.33 + 0.67 / (1 + exp((mV + 35 [mV]) / 4 [mV]))
     tau = (600 [ms] * exp(-(mV + 25 [mV])^2 / 170 [mV^2])
-           + 31 [ms] / (1 + exp((25 [mV] - mV) / 10 [mV])) 
+           + 31 [ms] / (1 + exp((25 [mV] - mV) / 10 [mV]))
            + 16 [ms] / (1 + exp((30 [mV] + mV) / 10 [mV]))
           ) * 1e-3 [s/ms]
         in [s]
@@ -154,11 +154,11 @@ dot(fCa) = (inf - fCa) / tau
     a = 1 / (1 + (Cai / 0.0006 [mM])^8)
     b = 0.1 / (1 + exp((Cai - 0.0009 [mM]) / 0.0001 [mM]))
     c = 0.3 / (1 + exp((Cai - 0.00075 [mM]) / 0.0008 [mM]))
-    tau = 0.002 [s] / const
+    tau = 0.002 [s] / e
         in [s]
-        const = if(V > -0.06 [V] and inf > fCa, 0, 1)
-P_CaL = 8.635702e-5 [L/F/ms]
-    in [L/F/ms]
+    e = if(V > -0.06 [V] and inf > fCa, 0, 1)
+P_CaL = 8.635702e-5 [m^3/F/s]
+    in [m^3/F/s]
 ICaL = P_CaL * d * f1 * f2 * fCa * if(V != 0 [V], b, c)
     in [A/F]
     b = 4 * V * F * FRT * (Cai * exp(2 * V * FRT) - 0.341 * Cao) / (exp(2 * V * FRT) - 1)
@@ -226,9 +226,9 @@ dot(xs) = (inf - xs) / tau
         in [s]
 g = 2.041 [S/F]
     in [S/F]
+k = 1 + 0.6 / (1 + (3.8e-5 [mM] / calcium.Cai)^1.4)
 IKs = g * xs^2 * k * (V - rev.EKs)
     in [A/F]
-    k = 1 + 0.6 / (1 + (3.8e-5 [mM] / calcium.Cai)^1.4)
 
 #
 # Funny current, haha!
@@ -257,7 +257,10 @@ mV = V * 1000 [mV/V]
     in [mV]
 dot(q) = (inf - q) / tau
     inf = 1 / (1 + exp((mV + 53 [mV]) / 13 [mV]))
-    tau = (6.06 [ms] + 39.102 [ms] / (0.57 * exp(-0.08 [1/mV] * (mV + 44 [mV])) + 0.065 * exp(0.1 [1/mV] * (mV + 45.93 [mV])))) * 1e-3 [s/ms]
+    tau = (6.06 [ms] + 39.102 [ms] / (
+            0.57 * exp(-0.08 [1/mV] * (mV + 44 [mV]))
+            + 0.065 * exp(0.1 [1/mV] * (mV + 45.93 [mV]))
+          )) * 1e-3 [s/ms]
         in [s]
 dot(r) = (inf - r) / tau
     inf = 1 / (1 + exp(-(mV - 22.3 [mV]) / 18.75 [mV]))
@@ -276,17 +279,14 @@ use membrane.V
 mV = V * 1000 [mV/V]
     in [mV]
 dot(m) = (inf - m) / tau
-    inf = 1 / (1 + exp((-mV - 34.1 [mV]) / 5.9 [mV]))^(1/3)
+    inf = 1 / (1 + exp((-mV - 34.1 [mV]) / 5.9 [mV]))^(1 / 3)
     alpha = 1 / (1 + exp((-mV - 60 [mV]) / 5 [mV]))
     beta = 0.1 / (1 + exp((mV + 35 [mV]) / 5 [mV])) + 0.1 / (1 + exp((mV - 50 [mV]) / 200 [mV]))
     tau = alpha * beta * 1e-3 [s]
         in [s]
 dot(h) = (inf - h) / tau
     inf = 1 / sqrt(1 + exp((mV + 72.1 [mV]) / 5.7 [mV]))
-    alpha = if(V < -0.04 [V],
-               0.057 [1/ms] * exp(-(mV + 80 [mV]) / 6.8 [mV]),
-               0 [1/ms]
-              )
+    alpha = if(V < -0.04 [V], 0.057 [1/ms] * exp(-(mV + 80 [mV]) / 6.8 [mV]), 0 [1/ms])
         in [1/ms]
     beta = if(V < -0.04 [V],
               2.7 [1/ms] * exp(0.079 [1/mV] * mV) + 3.1 [1/ms] * 1e5 * exp(0.3485 [1/mV] * mV),
@@ -298,7 +298,7 @@ dot(h) = (inf - h) / tau
 dot(j) = (inf - j) / tau
     inf = 1 / sqrt(1 + exp((mV + 72.1 [mV]) / 5.7 [mV]))
     alpha = if(V < -0.04 [V],
-               (-25428 [1/ms/mV] * exp(0.2444 [1/mV] * mV) 
+               (-25428 [1/ms/mV] * exp(0.2444 [1/mV] * mV)
                 -6.948 [1/ms/mV] * 1e-6 * exp(-0.04391 [1/mV] * mV)
                ) * (mV + 37.78 [mV]) / (1 + exp(0.311 [1/mV] * (mV + 79.23 [mV]))),
                0 [1/ms])
@@ -332,7 +332,7 @@ alpha = 2.8571432
 gamma = 0.35
 kNaCa = 4900 [A/F]
     in [A/F]
-INaCa = kNaCa * numer / denom 
+INaCa = kNaCa * numer / denom
     in [A/F]
     numer = exp(gamma * V * FRT) * Nai^3 * Cao - exp((gamma - 1) * V * FRT) * Nao^3 * Cai * alpha
         in [mM^4]
@@ -375,7 +375,6 @@ g = 0.69264 [S/F]
 IbCa = g * (membrane.V - rev.ECa)
     in [A/F]
 
-
 #
 # Background sodium current
 #
@@ -396,7 +395,8 @@ Ki = 150 [mM]
 # Internal sodium concentration
 #
 [sodium]
-dot(Nai) = -cell.Cm * (ina.INa + ibna.IbNa + 3 * inak.INaK + 3 * inaca.INaCa) / (phys.F * cell.Vc * 1e-18 [F/aF])
+use cell.Cm, cell.Vc, phys.F
+dot(Nai) = -(ina.INa + ibna.IbNa + 3 * inak.INaK + 3 * inaca.INaCa) * Cm / (F * Vc * 1e-18 [F/aF])
     in [mM]
 
 #
@@ -406,24 +406,24 @@ dot(Nai) = -cell.Cm * (ina.INa + ibna.IbNa + 3 * inak.INaK + 3 * inaca.INaCa) / 
 use calcium.Cai, calcium.CaSR
 dot(g) = (inf - g) / tau
     inf = if(Cai <= 0.00035 [mM], 1 / (1 + (Cai / 0.00035 [mM])^6), 1 / (1 + (Cai / 0.00035 [mM])^16))
-    tau = 0.002 [s] / const
+    tau = 0.002 [s] / c
         in [s]
-        const = if(inf > g and membrane.V > -0.06 [V], 0, 1)
-i_rel = (c_rel + a_rel * CaSR^2 / (b_rel^2 + CaSR^2)) * (ical.d * (g * 0.0411))
+    c = if(inf > g and membrane.V > -0.06 [V], 0, 1)
+a_rel = 16.464 [mM/s]
     in [mM/s]
-    a_rel = 16.464 [mM/s]
-        in [mM/s]
-    b_rel = 0.25 [mM]
-        in [mM]
-    c_rel = 8.232 [mM/s]
-        in [mM/s]
+b_rel = 0.25 [mM]
+    in [mM]
+c_rel = 8.232 [mM/s]
+    in [mM/s]
+i_rel = (c_rel + a_rel * CaSR^2 / (b_rel^2 + CaSR^2)) * ical.d * g * 0.0411
+    in [mM/s]
 
 #
 # Ca uptake into SR
 #
 [iup]
 use calcium.Cai
-Kup = 2.5e-4 [mM]
+Kup = 0.00025 [mM]
     in [mM]
 VmaxUp = 0.56064 [mM/s]
     in [mM/s]
@@ -435,13 +435,13 @@ i_up = VmaxUp / (1 + Kup^2 / Cai^2)
 #
 [ileak]
 use calcium.Cai, calcium.CaSR
-V_leak =  4.4444e-4 [1/s]
+V_leak = 4.4444e-4 [1/s]
     in [1/s]
 i_leak = (CaSR - Cai) * V_leak
     in [mM/s]
 
 #
-# Calcium concentrations
+# Internal calcium concentrations
 #
 [calcium]
 use membrane.V
@@ -455,8 +455,8 @@ Kbuf_C = 0.001 [mM]
     in [mM]
 Kbuf_SR = 0.3 [mM]
     in [mM]
-Cai_bufc = 1 / (1 + Buf_C * Kbuf_C / (Cai + Kbuf_C)^2)
 CaSR_bufSR = 1 / (1 + Buf_SR * Kbuf_SR / (CaSR + Kbuf_SR)^2)
+Cai_bufc = 1 / (1 + Buf_C * Kbuf_C / (Cai + Kbuf_C)^2)
 dot(CaSR) = CaSR_bufSR * (Vc / V_SR) * (i_up - i_rel - i_leak)
     in [mM]
 dot(Cai) = Cai_bufc * (i_leak - i_up + i_rel - (ical.ICaL + ibca.IbCa + ipca.IpCa - 2 * inaca.INaCa) * cell.Cm / (2 * Vc * phys.F * 1e-18 [F/aF]))
@@ -475,7 +475,7 @@ Ko = 5.4 [mM]
 
 [[protocol]]
 # Level  Start    Length   Period   Multiplier
-1        0        0.005    1.0      0
+1        0        0.005    1        0
 
 [[script]]
 import matplotlib.pyplot as plt
