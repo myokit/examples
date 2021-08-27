@@ -9,13 +9,13 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 
 ## Running simulations
 
-1. [Simulating an action potential](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/1-1-simulating-an-action-potential.ipynb)
+1. [Simulating an action potential](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-1-simulating-an-action-potential.ipynb)
     - Loading a model, protocol, and script
     - Creating a simulation
     - Running a simulation
     - Plotting simulation results with matplotlib
 
-2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/1-2-logging-simulation-results.ipynb)
+2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-2-logging-simulation-results.ipynb)
     - [ ] Selecting variable by name
     - [ ] Logging derivatives
     - [ ] Using logging flags
@@ -23,7 +23,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Selecting which points to log
     - [ ] Storing results to disk
 
-3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/1-3-starting-stopping.ipynb)
+3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-3-starting-stopping.ipynb)
     - [ ] Starting and stoppping simulations
     - [ ] Pre-pacing to a "steady state"
     - [ ] Simulating the effects of parameter changes
@@ -82,7 +82,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Markov (analytical)
     - [ ] Markov (discrete)
 
-0. Examples of fitting ionic currents and fitting conductances: [ion channel fitting tutorial](https://github.com/pints-team/myokit-pints-examples)
+0. Examples of fitting ionic currents and fitting conductances: [ion channel fitting notebooks](https://github.com/CardiacModelling/fitting-notebooks)
 
 ## Multi-cell simulations
 
@@ -211,18 +211,18 @@ This section contains notebooks that explain or define some of the trickier part
 They are used in Myokit development, and document tricky decisions made along the way.
 These notebooks have not been reviewed or checked extensively, so some errors may be present.
 
-1. [Pacing](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t1-pacing.ipynb)
-2. [Logging](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t2-logging.ipynb)
-3. [CVODE(s) single-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t3-cvodes-simulation.ipynb)
-4. [OpenCL multi-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t4-opencl-simulation.ipynb)
-5. [HH channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t5-hh-channels.ipynb)
-6. [Markov channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t6-markov-channels.ipynb)
-7. [Rush-Larsen updates](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/t7-rush-larsen.ipynb)
+1. [Pacing](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t1-pacing.ipynb)
+2. [Logging](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t2-logging.ipynb)
+3. [CVODE(s) single-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t3-cvodes-simulation.ipynb)
+4. [OpenCL multi-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t4-opencl-simulation.ipynb)
+5. [HH channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t5-hh-channels.ipynb)
+6. [Markov channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t6-markov-channels.ipynb)
+7. [Rush-Larsen updates](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/t7-rush-larsen.ipynb)
 
-- [Simulation test case: Simple model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/tA-test-case-simple.ipynb)
+- [Simulation test case: Simple model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/tA-test-case-simple.ipynb)
 - Simulation test case: HH ion channel model
-- [Simulation test case: PK model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/tC-test-case-pk-model.ipynb)
-- [Autodiff simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit/blob/main/examples/tZ-autodiff.ipynb)
+- [Simulation test case: PK model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/tC-test-case-pk-model.ipynb)
+- [Autodiff simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/tZ-autodiff.ipynb)
 
 ## Contributors
 
