@@ -187,8 +187,8 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 
 0. Graph Data Extractor
 
-0. Matplotlib basics, see https://myokit.readthedocs.io/guide/matplotlib.html
-    - [ ] Base on from https://myokit.readthedocs.io/guide/matplotlib.html
+0. Matplotlib basics, see https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
+    - [ ] Base on from https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
     - [ ] Show simple example, but with axes etc.
     - [ ] Then with subplots, and subplots_adjust
     - [ ] Then with gridspec
