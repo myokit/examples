@@ -1,0 +1,32 @@
+name: Notebooks
+
+on:
+  schedule:
+    # 4am on monday (minute, hour, day, month, day-of-the-week)
+    - cron:  '0 4 * * 1'
+
+jobs:
+
+  build-and-test:
+    name: Notebooks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+          architecture: x64
+
+      - name: install requirements
+        run: |
+          python --version
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -r requirements.txt
+
+      - name: test notebooks
+        run: |
+          python test.py
+
