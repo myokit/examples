@@ -16,12 +16,12 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - Plotting simulation results with matplotlib
 
 2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-2-logging-simulation-results.ipynb)
-    - [ ] Selecting variable by name
-    - [ ] Logging derivatives
-    - [ ] Using logging flags
-    - [ ] Continuing on from a previous simulation
-    - [ ] Selecting which points to log
-    - [ ] Storing results to disk
+    - Selecting variable by name
+    - Logging derivatives of state variables
+    - Using logging flags
+    - Continuing on from a previous simulation
+    - Selecting which points to log
+    - Storing results to disk
 
 3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-3-starting-stopping.ipynb)
     - [ ] Starting and stoppping simulations
@@ -75,12 +75,21 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] with pacing factory
     - Link to fitting tutorial. Or even move those bits here?
 
-0. Running single current simulations
+0. Applying complex waveforms
+    - [ ] Steps and ramps
+    - [ ] Steps and sine waves
+    - [ ] Data clamp (AP clamp)
+
+0. Hodgkin-Huxley models
     - [ ] CVODES sim
-    - [ ] HH
+    - [ ] Isolating HH models
+    - [ ] Analytical simulation
     - [ ] Converting HH model forms
-    - [ ] Markov (analytical)
-    - [ ] Markov (discrete)
+
+0. Markov models
+    - [ ] Isolating markov models
+    - [ ] Analytical simulation
+    - [ ] Discrete simulation
 
 0. Examples of fitting ionic currents and fitting conductances: [ion channel fitting notebooks](https://github.com/CardiacModelling/fitting-notebooks)
 
