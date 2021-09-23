@@ -1,6 +1,6 @@
 [[model]]
 name: koivumaki-2011
-version: 20210816
+version: 20210923
 mmt_authors: Michael Clerx
 desc: """
     Model of the human atrial action potential by Koivumaki et al. [1], based
@@ -181,11 +181,9 @@ dot(fca) = (inf - fca) / tau
         in [s]
 ECa_app = 60 [mV]
     in [mV]
-scaling = 1
-    label I_CaL_scaling
 gCaL = 25.3125 [nS]
     in [nS]
-ICaL = scaling * gCaL * d * fca * f1 * f2 * (V - ECa_app)
+ICaL = gCaL * d * fca * f1 * f2 * (V - ECa_app)
     in [pA]
     label I_CaL
 
