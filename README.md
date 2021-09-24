@@ -16,37 +16,102 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - Plotting simulation results with matplotlib
 
 2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-2-logging-simulation-results.ipynb)
-    - Selecting variable by name
+    - Selecting variables by name or using logging flags
     - Logging derivatives of state variables
-    - Using logging flags
     - Continuing on from a previous simulation
     - Selecting which points to log
     - Storing results to disk
 
 3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-3-starting-stopping.ipynb)
-    - [ ] Starting and stoppping simulations
-    - [ ] Pre-pacing to a "steady state"
-    - [ ] Simulating the effects of parameter changes
+    - Starting and stoppping simulations
+    - Pre-pacing to a "steady state"
+    - Simulating the effects of parameter changes
 
 4. Controlling the solver
-    - [ ] Sim errors
-    - [ ] Step tolerance
-    - [ ] Set max time step
+    - [ ] Simulation errors
+    - [ ] Absolute and relative tolerance
+    - [ ] Max time step
 
-4. Using the IDE
+5. Exploring models in the IDE
     - [ ] Script in IDE vs script in Python
+    - [ ] MMT syntax, link to quick guide and full syntax
     - [ ] Run (w. F6)
     - [ ] Eval eq., var info
     - [ ] Graphing variables (Ctrl+G)
     - [ ] Graph component and variable dependencies
     - [ ] Graph "state dependency matrix"
 
-6. Periodic pacing protocols
+6. Protocols for periodic pacing
     - [ ] MMT syntax, link to full
     - [ ] API
     - [ ] pacing factories
     - [ ] AP clamp
     - [ ] Models without pacing (Purkinje)
+
+## Working with models
+
+1. Model syntax: a brief overview
+    - [ ] Link to full
+    - [ ] Model, comp, var, nested var
+    - [ ] Alias
+    - [ ] Units (number vs in, checking)
+    - [ ] User functions?
+    - [ ] Binding & labels
+
+2. Implementing models
+    - [ ] Comparing models with step
+    - [ ] Unit checking
+    - [ ] State dep matrix
+    - [ ] Show variable info / evaluation
+    - [ ] Show variable users and dependencies
+    - [ ] Interconnected components?
+
+3. Modifying models using the API
+    - [ ] Adding variables
+    - [ ] Getting functions with pyfunc
+    - [ ] Manipulating models
+    - [ ] Manipulating equations (variable, eq, lhs, rhs, derivatives, refs_by, refs_to)
+
+4. Units
+    - [ ] Unit objects
+    - [ ] Predefined units
+    - [ ] Quantities
+    - [ ] Unit conversion
+
+5. Working with multiple models
+    - [ ] Labels (annotated variables)
+    - [ ] lib.guess
+    - [ ] Unit conversion (again)
+    - [ ] freezing variables
+    - [ ] importing components
+    - [ ] Oxmeta/WL integration?
+
+## Importing and exporting
+
+0. Using CellML
+    - [ ] Importing
+    - [ ] Exporting
+    - [ ] Auto stimulus, vs hardcoded ?
+    - [ ] Using APIs ???
+
+0. More model formats
+    - [ ] SBML
+    - [ ] ChannelML
+    - [ ] easyml, stan
+
+0. Exporting runnable code
+    - [ ] matlab, C, C++, python
+    - [ ] opencl, cuda
+    - [ ] Import isn't possible
+
+0. Exporting presentation formats
+    - [ ] Exporting for presentations: latex / html
+
+0. Data formats
+    - [ ] Importing patch clamp data
+    - [ ] DataLog viewer
+    - [ ] Importing protocols from ABF
+    - [ ] Exporting patch clamp protocols? (ATF)
 
 ## Single-cell simulations
 
@@ -107,7 +172,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Storing CSV log
     - [ ] Converting to block
     - [ ] Writing block (txt vs zip)
-    - [ ] Displaying with block viewer
+    - [ ] Displaying with DataBlock viewer
     - [ ] Movies
 
 0. Running simulations
@@ -123,78 +188,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 0. Simulating arbitrary networks
     - [ ] set_connections
 
-## Working with models
-
-0. Model syntax
-    - [ ] Model, comp, var, nested var
-    - [ ] Alias
-    - [ ] Units (number vs in, checking)
-    - [ ] Use func?
-    - [ ] Binding & labels
-    - [ ] Link to full
-
-0. Implementing models
-    - [ ] Comparing models with step
-    - [ ] Unit checking
-    - [ ] State dep matrix
-    - [ ] Show variable info / evaluation
-    - [ ] Show variable users and dependencies
-    - [ ] Interconnected components?
-
-0. Modifying models using the API
-    - [ ] Adding variables
-    - [ ] Getting functions with pyfunc
-    - [ ] Manipulating models
-    - [ ] Manipulating equations (variable, eq, lhs, rhs, derivatives, refs_by, refs_to)
-
-0. Units
-    - [ ] Unit objects
-    - [ ] Predefined units
-    - [ ] Quantities
-    - [ ] Unit conversion
-
-0. Working with multiple models
-    - [ ] Labels (annotated variables)
-    - [ ] lib.guess
-    - [ ] Unit conversion (again)
-    - [ ] freezing variables
-    - [ ] importing components
-    - [ ] Oxmeta/WL integration?
-
-## Importing and exporting
-
-0. Using CellML
-    - [ ] Importing
-    - [ ] Exporting
-    - [ ] Auto stimulus, vs hardcoded ?
-    - [ ] Using APIs ???
-
-0. More model formats
-    - [ ] SBML
-    - [ ] ChannelML
-    - [ ] easyml, stan
-
-0. Exporting runnable code
-    - [ ] matlab, C, C++, python
-    - [ ] opencl, cuda
-    - [ ] Import isn't possible
-
-0. Exporting presentation formats
-    - [ ] Exporting for presentations: latex / html
-
-0. Data formats
-    - [ ] Importing patch clamp data
-    - [ ] DataLog viewer
-    - [ ] Importing protocols from ABF
-    - [ ] Exporting patch clamp protocols? (ATF)
-
 ## Appendix
-
-0. DataLog viewer
-
-0. DataBlock viewer
-
-0. Graph Data Extractor
 
 0. Matplotlib basics, see https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
     - [ ] Base on from https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
@@ -243,5 +237,5 @@ Please:
 
 - Re-use the example code in the notebooks (.ipynb) and separate python (.py) files as much as you like.
 - Contact michael@myokit.org if you wish to re-use the notebook text or any figures included in this repository.
-- Check the included model files for information about their copyright and licensing, particularly for commercial use!
+- Check the included model files for information about their copyright and licensing.
 
