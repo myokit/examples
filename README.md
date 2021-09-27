@@ -7,6 +7,9 @@
 These example notebooks show how Myokit can be used in a variety of cardiac electrophysiology applications, at the cellular, sub-cellular, or tissue scale.
 They accompany the detailed Myokit (API) documentation provided on [https://myokit.readthedocs.io](https://myokit.readthedocs.io).
 
+- [Before you begin](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/0-1-before-you-begin.ipynb)
+    - If you're not sure how to use these examples, start here.
+
 ## 1. Running simulations
 
 1. [Simulating an action potential](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-1-simulating-an-action-potential.ipynb)
@@ -27,29 +30,31 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - Pre-pacing to a "steady state"
     - Simulating the effects of parameter changes
 
-4. [Exploring models in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-4-exploring-models-in-the-ide.ipynb)
+4. Controlling the solver
+    - [ ] Simulation errors
+    - [ ] Absolute and relative tolerance
+    - [ ] Max time step
+
+5. Root-finding and sensitivities
+    - [ ] Tracking an action potential duration
+    - [ ] Obtaining sensitivities
+
+## 2. Using the IDE
+
+1. [Exploring models in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/2-1-exploring-models-in-the-ide.ipynb)
     - Starting the IDE
     - Using the Explorer
     - Graphing model structure
     - Getting information about variables
     - Running embedded scripts
 
-5. Creating protocols in the IDE
+2. Creating protocols in the IDE
     - [ ] MMT syntax, link to full
     - [ ] Plotting
     - [ ] Models without pacing (Purkinje)
 
-6. Controlling the solver
-    - [ ] Simulation errors
-    - [ ] Absolute and relative tolerance
-    - [ ] Max time step
-    - [ ] Progress reporter
 
-7. Root-finding and sensitivities
-    - [ ] Tracking an action potential duration
-    - [ ] Obtaining parameter sensitivities
-
-## 2. Working with models
+## 3. Working with models
 
 1. Model syntax: a brief overview
     - [ ] Model, components, variables
@@ -79,7 +84,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] "Clamping" a variable
     - [ ] Importing components
 
-## 3. Importing and exporting
+## 4. Importing and exporting
 
 1. Using CellML
     - [ ] Importing
@@ -107,7 +112,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Importing protocols from ABF
     - [ ] Exporting patch clamp protocols? (ATF)
 
-## 4. Single-cell simulations
+## 5. Single-cell simulations
 
 1. Protocols for periodic pacing
     - [ ] MMT syntax, link to full
@@ -129,7 +134,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 
 0. Strenght-duration curves
 
-## 5. Ion current simulations
+## 6. Ion current simulations
 
 1. Voltage-step protocols
     - [ ] Creating a step protocol in mmt (``next``)
@@ -157,7 +162,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 
 0. Examples of fitting ionic currents and fitting conductances: [ion channel fitting notebooks](https://github.com/CardiacModelling/fitting-notebooks)
 
-## 6. Multi-cell simulations
+## 7. Multi-cell simulations
 
 0. Simulating strand and tissue
     - [ ] 1d, no OpenCL, binding
