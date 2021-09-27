@@ -33,17 +33,12 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 ## 2. Using the IDE
 
 1. [Exploring models in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/2-1-exploring-models-in-the-ide.ipynb)
-    - Starting the IDE
-    - Using the Explorer
-    - Graphing model structure
-    - Getting information about variables
-    - Running embedded scripts
+   : Starting the IDE; Using the Explorer; Graphing model structure; Getting information about variables; Running embedded scripts.
 
 2. Creating protocols in the IDE
     - [ ] MMT syntax, link to full
     - [ ] Plotting
     - [ ] Models without pacing (Purkinje)
-
 
 ## 3. Working with models
 
