@@ -8,12 +8,12 @@ These example notebooks show how Myokit can be used in a variety of cardiac elec
 They accompany the detailed Myokit (API) documentation provided on [https://myokit.readthedocs.io](https://myokit.readthedocs.io).
 
 - [Before you begin](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/0-1-before-you-begin.ipynb)
-  \\If you're not sure how to use these examples, start here.
+  - If you're not sure how to use these examples, start here.
 
 ## 1. Running simulations
 
 1. [Simulating an action potential](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-1-simulating-an-action-potential.ipynb)
-   \\Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
+   - Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
 
 2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-2-logging-simulation-results.ipynb)
     - Selecting variables by name or using logging flags
