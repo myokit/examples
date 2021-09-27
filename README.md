@@ -16,16 +16,10 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
    : Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
 
 2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-2-logging-simulation-results.ipynb)
-    - Selecting variables by name or using logging flags
-    - Logging derivatives of state variables
-    - Continuing on from a previous simulation
-    - Selecting which points to log
-    - Storing results to disk
+   : Selecting variables by name or using logging flags; Logging derivatives of state variables; Continuing on from a previous simulation; Selecting which points to log; Storing results to disk.
 
 3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-3-starting-stopping.ipynb)
-    - Starting and stoppping simulations
-    - Pre-pacing to a "steady state"
-    - Simulating the effects of parameter changes
+   : Starting and stoppping simulations; Pre-pacing to a "steady state"; Simulating the effects of parameter changes.
 
 4. Controlling the solver
     - [ ] Simulation errors
