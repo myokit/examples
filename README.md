@@ -7,7 +7,9 @@
 These example notebooks showing how Myokit can be used in a variety of applications, ranging from cellular to sub-cellular to tissue simulations.
 They accompany the detailed Myokit (API) documentation provided on [https://myokit.readthedocs.io](https://myokit.readthedocs.io).
 
-## Running simulations
+1. A very fast overview
+
+## 1. Running simulations
 
 1. [Simulating an action potential](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-1-simulating-an-action-potential.ipynb)
     - Loading a model, protocol, and script
@@ -27,12 +29,7 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - Pre-pacing to a "steady state"
     - Simulating the effects of parameter changes
 
-4. Controlling the solver
-    - [ ] Simulation errors
-    - [ ] Absolute and relative tolerance
-    - [ ] Max time step
-
-5. Exploring models in the IDE
+4. Exploring models in the IDE
     - [ ] Script in IDE vs script in Python
     - [ ] MMT syntax, link to quick guide and full syntax
     - [ ] Run (w. F6)
@@ -41,14 +38,22 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Graph component and variable dependencies
     - [ ] Graph "state dependency matrix"
 
-6. Protocols for periodic pacing
+5. Creating protocols in the IDE
     - [ ] MMT syntax, link to full
-    - [ ] API
-    - [ ] pacing factories
-    - [ ] AP clamp
+    - [ ] Plotting
     - [ ] Models without pacing (Purkinje)
 
-## Working with models
+6. Controlling the solver
+    - [ ] Simulation errors
+    - [ ] Absolute and relative tolerance
+    - [ ] Max time step
+    - [ ] Progress reporter
+
+7. Root-finding and sensitivities
+    - [ ] Tracking an action potential duration
+    - [ ] Obtaining parameter sensitivities
+
+## 2. Working with models
 
 1. Model syntax: a brief overview
     - [ ] Link to full
@@ -86,36 +91,44 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] importing components
     - [ ] Oxmeta/WL integration?
 
-## Importing and exporting
+## 3. Importing and exporting
 
-0. Using CellML
+1. Using CellML
     - [ ] Importing
     - [ ] Exporting
-    - [ ] Auto stimulus, vs hardcoded ?
-    - [ ] Using APIs ???
+    - [ ] Auto stimulus, vs hardcoded
+    - [ ] Annotations
+    - [ ] Using APIs
 
-0. More model formats
+2. Using other model formats
     - [ ] SBML
     - [ ] ChannelML
     - [ ] easyml, stan
 
-0. Exporting runnable code
+3. Exporting runnable code
     - [ ] matlab, C, C++, python
     - [ ] opencl, cuda
     - [ ] Import isn't possible
 
-0. Exporting presentation formats
+4. Exporting presentation formats
     - [ ] Exporting for presentations: latex / html
 
-0. Data formats
+5. Using data formats
     - [ ] Importing patch clamp data
     - [ ] DataLog viewer
     - [ ] Importing protocols from ABF
     - [ ] Exporting patch clamp protocols? (ATF)
 
-## Single-cell simulations
+## 4. Single-cell simulations
 
-0. Calculating APDs
+1. Protocols for periodic pacing
+    - [ ] MMT syntax, link to full
+    - [ ] API
+    - [ ] pacing factories
+    - [ ] AP clamp
+    - [ ] Models without pacing (Purkinje)
+
+2. Calculating APDs
     - [ ] APD calculation
     - [ ] Restitution
     - [ ] Alternans
@@ -128,11 +141,9 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Cumulative current plots
     - [ ] More things from lib.plots ?
 
-0. Sensitivities
+## 5. Ion current simulations
 
-## Ion current simulations
-
-0. Voltage-step protocols
+1. Voltage-step protocols
     - [ ] Creating a step protocol in mmt (``next``)
     - [ ] Plotting it (fitting tutorial!)
     - [ ] is_sequence etc,
@@ -140,25 +151,25 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] with pacing factory
     - Link to fitting tutorial. Or even move those bits here?
 
-0. Applying complex waveforms
+2. Applying complex waveforms
     - [ ] Steps and ramps
     - [ ] Steps and sine waves
     - [ ] Data clamp (AP clamp)
 
-0. Hodgkin-Huxley models
+3. Hodgkin-Huxley models
     - [ ] CVODES sim
     - [ ] Isolating HH models
     - [ ] Analytical simulation
     - [ ] Converting HH model forms
 
-0. Markov models
+4. Markov models
     - [ ] Isolating markov models
     - [ ] Analytical simulation
     - [ ] Discrete simulation
 
 0. Examples of fitting ionic currents and fitting conductances: [ion channel fitting notebooks](https://github.com/CardiacModelling/fitting-notebooks)
 
-## Multi-cell simulations
+## 6. Multi-cell simulations
 
 0. Simulating strand and tissue
     - [ ] 1d, no OpenCL, binding
