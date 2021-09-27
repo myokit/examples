@@ -56,12 +56,9 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 ## 2. Working with models
 
 1. Model syntax: a brief overview
-    - [ ] Link to full
-    - [ ] Model, comp, var, nested var
-    - [ ] Alias
-    - [ ] Units (number vs in, checking)
-    - [ ] User functions?
-    - [ ] Binding & labels
+    - [ ] Model, components, variables
+    - [ ] Units (variable and expression units)
+    - [ ] Annotations (bindings, labels, meta data)
 
 2. Implementing models
     - [ ] Comparing models with step
@@ -84,12 +81,10 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Unit conversion
 
 5. Working with multiple models
-    - [ ] Labels (annotated variables)
-    - [ ] lib.guess
-    - [ ] Unit conversion (again)
-    - [ ] freezing variables
-    - [ ] importing components
-    - [ ] Oxmeta/WL integration?
+    - [ ] Identifying common variables
+    - [ ] Unit conversion
+    - [ ] "Clamping" a variable
+    - [ ] Importing components
 
 ## 3. Importing and exporting
 
@@ -135,11 +130,11 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
 
 0. Pre-pacing to steady state
 
-0. Strenght-duration curves
-
 0. Analysing currents
     - [ ] Cumulative current plots
     - [ ] More things from lib.plots ?
+
+0. Strenght-duration curves
 
 ## 5. Ion current simulations
 
