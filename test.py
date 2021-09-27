@@ -8,29 +8,42 @@ import subprocess
 import sys
 
 import nbconvert
+import requests
 
 # Natural sort regex
-_natural_sort_regex = re.compile('([0-9]+)')
+_natural_sort_regex = re.compile(r'([0-9]+)')
+
+# Markdown link regex
+_markdown_link_regex = re.compile(r'\[([^]]+)\]\(([^\s]+)\)')
+
+# Don't check links twice
+_checked_links = {}
 
 
-def test_notebooks():
+def test_notebooks(links=False):
     """
-    Tests all example notebooks
+    Tests all example notebooks.
+
+    If ``links==True`` the notebook code will not be tested, but the notebook
+    links will be tested instead.
     """
     # Known errors, or directories to avoid
     ignore = [
+        'data',
         'figures',
         'models',
         'venv',
     ]
+
     # Work in progress
     ignore.extend([
-        #'real-data-2-capacitance-and-resistance.ipynb',
-        #'real-data-3-xxx.ipynb',
+        # 'real-data-2-capacitance-and-resistance.ipynb',
+        # 'real-data-3-xxx.ipynb',
+        '0-1-before-you-begin.ipynb',
     ])
 
+    # Scan directory, running notebooks as we find them.
     def scan(root, failed=None):
-        """Scan directory, running notebooks as we find them."""
         if failed is None:
             failed = []
 
@@ -43,11 +56,18 @@ def test_notebooks():
             if os.path.splitext(filename)[1] == '.ipynb':
                 print('Testing ' + path + '.'*(max(0, 70 - len(path))), end='')
                 sys.stdout.flush()
-                res = test_notebook(root, filename)
+
+                if links:
+                    res = check_links(root, filename)
+                else:
+                    res = test_notebook(root, filename)
                 if res is None:
                     print('ok')
                 else:
-                    failed.append((path, *res))
+                    if links:
+                        failed.append((path, res))
+                    else:
+                        failed.append((path, *res))
                     print('FAIL')
 
             # Recurse into subdirectories
@@ -61,11 +81,18 @@ def test_notebooks():
 
     failed = scan('.')
     if failed:
-        for path, stdout, stderr in failed:
-            print('-' * 79)
-            print('Error output for: ' + path)
-            print((stdout + stderr).replace('\\n', '\n').strip())
-            print()
+        if links:
+            for path, msg in failed:
+                print('-' * 79)
+                print('Link issues in: ' + path)
+                print(msg.strip())
+                print()
+        else:
+            for path, stdout, stderr in failed:
+                print('-' * 79)
+                print('Error output for: ' + path)
+                print((stdout + stderr).replace('\\n', '\n').strip())
+                print()
 
         print('-' * 79)
         print('Test failed (' + str(len(failed)) + ') error(s).')
@@ -110,6 +137,69 @@ def test_notebook(root, path):
     return None
 
 
+def check_links(root, path):
+    """
+    Checks all (Markdown) links in a given notebook, and checks that they
+    resolve. Returns ``None`` if succesfull, or an error message if one or more
+    links are broken.
+    """
+    # Non-local links roots to convert to local
+    convert = [
+        'https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/'
+        'blob/main/',
+    ]
+
+    # Load notebook, convert to markdown
+    e = nbconvert.exporters.MarkdownExporter()
+    code, _ = e.from_filename(os.path.join(root, path))
+
+    # Method to check a local link
+    def check_local(href):
+        if not os.path.exists(href):
+            return f'Unknown path: {href}'
+
+    # Method to check a remote link
+    def check_remote(href):
+        try:
+            response = _checked_links[href]
+        except Exception:
+            response = _checked_links[href] = requests.head(href).status_code
+
+        if response not in [200, 301, 302]:
+            return f'HTTP {response}: {href}'
+
+    # Scan over links, create error message
+    errors = []
+    for m in _markdown_link_regex.finditer(code):
+        name, href = m.groups()
+
+        # Ignore figures inside notebook
+        if name == 'png' and href[:7] == 'output_' and href[-4:] == '.png':
+            continue
+        if name == 'svg' and href[:7] == 'output_' and href[-4:] == '.svg':
+            continue
+
+        # Convert selected http/https links to local
+        for pre in convert:
+            if href.startswith(pre):
+                href = href[len(pre):]
+                if href[:1] == '/':
+                    href = '.' + href
+
+        # Check link
+        if href[:7].lower() in ['http://', 'https:/']:
+            ok = check_remote(href)
+        else:
+            ok = check_local(href)
+        if ok is not None:
+            errors.append(ok)
+
+    # Join error messages and return
+    if errors:
+        return '\n'.join(errors)
+    return None
+
+
 def natural_sort_key(s):
     """
     Function to use as ``key`` in a sort, to get natural sorting of strings
@@ -127,10 +217,14 @@ def natural_sort_key(s):
 
 
 if __name__ == '__main__':
-    print('Running all notebooks!')
+    links = 'links' in sys.argv
+    if links:
+        print('Checking links in all notebooks')
+    else:
+        print('Running all notebooks!')
     print('This is used for regular online testing.')
     print('If you are not interested in testing the notebooks,')
     print()
     print('  Press Ctrl+C to abort.')
     print()
-    test_notebooks()
+    test_notebooks(links)
