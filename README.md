@@ -40,6 +40,9 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Plotting
     - [ ] Models without pacing (Purkinje)
 
+3. [Running scripts in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/2-3-running-scripts-in-the-ide.ipynb)
+   : Briefly discusses running embedded scripts, and the pros and cons of this feature.
+
 ## 3. Working with models
 
 1. Model syntax: a brief overview
