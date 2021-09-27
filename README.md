@@ -4,7 +4,7 @@
 
 ## Using Myokit
 
-These example notebooks showing how Myokit can be used in a variety of applications, ranging from cellular to sub-cellular to tissue simulations.
+These example notebooks show how Myokit can be used in a variety of cardiac electrophysiology applications, at the cellular, sub-cellular, or tissue scale.
 They accompany the detailed Myokit (API) documentation provided on [https://myokit.readthedocs.io](https://myokit.readthedocs.io).
 
 ## 1. Running simulations
