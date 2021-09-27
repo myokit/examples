@@ -1,6 +1,0 @@
-Explain that
-
-dot(x) = 4 [mV/ms]
-    in [mV]
-
-is correct: the "in" is for "x", not for "dot(x)"

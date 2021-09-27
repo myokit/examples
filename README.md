@@ -7,8 +7,6 @@
 These example notebooks showing how Myokit can be used in a variety of applications, ranging from cellular to sub-cellular to tissue simulations.
 They accompany the detailed Myokit (API) documentation provided on [https://myokit.readthedocs.io](https://myokit.readthedocs.io).
 
-1. A very fast overview
-
 ## 1. Running simulations
 
 1. [Simulating an action potential](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-1-simulating-an-action-potential.ipynb)
@@ -29,14 +27,12 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - Pre-pacing to a "steady state"
     - Simulating the effects of parameter changes
 
-4. Exploring models in the IDE
-    - [ ] Script in IDE vs script in Python
-    - [ ] MMT syntax, link to quick guide and full syntax
-    - [ ] Run (w. F6)
-    - [ ] Eval eq., var info
-    - [ ] Graphing variables (Ctrl+G)
-    - [ ] Graph component and variable dependencies
-    - [ ] Graph "state dependency matrix"
+4. [Exploring models in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/1-4-exploring-models-in-the-ide.ipynb)
+    - Starting the IDE
+    - Using the Explorer
+    - Graphing model structure
+    - Getting information about variables
+    - Running embedded scripts
 
 5. Creating protocols in the IDE
     - [ ] MMT syntax, link to full
@@ -61,12 +57,9 @@ They accompany the detailed Myokit (API) documentation provided on [https://myok
     - [ ] Annotations (bindings, labels, meta data)
 
 2. Implementing models
+    - [ ] Validation
     - [ ] Comparing models with step
     - [ ] Unit checking
-    - [ ] State dep matrix
-    - [ ] Show variable info / evaluation
-    - [ ] Show variable users and dependencies
-    - [ ] Interconnected components?
 
 3. Modifying models using the API
     - [ ] Adding variables
