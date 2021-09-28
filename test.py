@@ -42,6 +42,11 @@ def test_notebooks(links=False):
         '0-1-before-you-begin.ipynb',
     ])
 
+    # Extensions to check
+    allowed_extensions = ['.ipynb']
+    if links:
+        allowed_extensions.append('.md')
+
     # Scan directory, running notebooks as we find them.
     def scan(root, failed=None):
         if failed is None:
@@ -53,7 +58,7 @@ def test_notebooks(links=False):
             path = os.path.join(root, filename)
 
             # Test notebooks
-            if os.path.splitext(filename)[1] == '.ipynb':
+            if os.path.splitext(filename)[1] in allowed_extensions:
                 print('Testing ' + path + '.'*(max(0, 70 - len(path))), end='')
                 sys.stdout.flush()
 
@@ -143,18 +148,28 @@ def check_links(root, path):
     resolve. Returns ``None`` if succesfull, or an error message if one or more
     links are broken.
     """
-    # Non-local links roots to convert to local
+    # Non-local link roots to convert to local root
     convert = [
         'https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/'
         'blob/main/',
     ]
 
-    # Load notebook, convert to markdown
-    e = nbconvert.exporters.MarkdownExporter()
-    code, _ = e.from_filename(os.path.join(root, path))
+    # Load contents
+    if os.path.splitext(path)[1] == '.ipynb':
+        # Convert notebook
+        e = nbconvert.exporters.MarkdownExporter()
+        code, _ = e.from_filename(os.path.join(root, path))
+    else:
+        # Load as plain text
+        with open(os.path.join(root, path), 'r') as f:
+            code = f.read()
 
     # Method to check a local link
     def check_local(href):
+        if href[:1] == '/':
+            href = href[1:]
+        else:
+            href = os.path.join(root, href)
         if not os.path.exists(href):
             return f'Unknown path: {href}'
 
@@ -179,12 +194,12 @@ def check_links(root, path):
         if name == 'svg' and href[:7] == 'output_' and href[-4:] == '.svg':
             continue
 
-        # Convert selected http/https links to local
+        # Convert selected http/https links to local root
         for pre in convert:
             if href.startswith(pre):
                 href = href[len(pre):]
-                if href[:1] == '/':
-                    href = '.' + href
+                if href[:1] != '/':
+                    href = '/' + href
 
         # Check link
         if href[:7].lower() in ['http://', 'https:/']:
