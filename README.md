@@ -5,8 +5,8 @@
 ## Using Myokit
 
 These example notebooks show how [Myokit](http://myokit.org) can be used in a variety of cardiac electrophysiology applications, at the cellular, sub-cellular, or tissue scale.
-They accompany the detailed API documentation provided on [https://myokit.readthedocs.io](https://myokit.readthedocs.io).
-Myokit's source code can be viewed on [github](https://github.com/MichaelClerx/myokit/).
+They accompany the detailed information on the individual classes and methods found in the [API documentation](https://myokit.readthedocs.io).
+Software developers may also want to check out Myokit's [github repository](https://github.com/MichaelClerx/myokit/).
 
 - [Before you begin](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/0-1-before-you-begin.ipynb)
   : If you're not sure how to use these examples, start here.
