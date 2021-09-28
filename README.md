@@ -208,18 +208,18 @@ This section contains notebooks that explain or define some of the trickier part
 They are used in Myokit development, and document tricky decisions made along the way.
 These notebooks have not been reviewed or checked extensively, so some errors may be present.
 
-1. [Pacing](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t1-pacing.ipynb)
-2. [Logging](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t2-logging.ipynb)
-3. [CVODE(s) single-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t3-cvodes-simulation.ipynb)
-4. [OpenCL multi-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t4-opencl-simulation.ipynb)
-5. [HH channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t5-hh-channels.ipynb)
-6. [Markov channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t6-markov-channels.ipynb)
-7. [Rush-Larsen updates](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/t7-rush-larsen.ipynb)
+1. [Pacing](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t1-pacing.ipynb)
+2. [Logging](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t2-logging.ipynb)
+3. [CVODE(s) single-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t3-cvodes-simulation.ipynb)
+4. [OpenCL multi-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t4-opencl-simulation.ipynb)
+5. [HH channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t5-hh-channels.ipynb)
+6. [Markov channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t6-markov-channels.ipynb)
+7. [Rush-Larsen updates](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t7-rush-larsen.ipynb)
 
-- [Simulation test case: Simple model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/tA-test-case-simple.ipynb)
+- [Simulation test case: Simple model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tA-test-case-simple.ipynb)
 - Simulation test case: HH ion channel model
-- [Simulation test case: PK model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/tC-test-case-pk-model.ipynb)
-- [Autodiff simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/tZ-autodiff.ipynb)
+- [Simulation test case: PK model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tC-test-case-pk-model.ipynb)
+- [Autodiff simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tZ-autodiff.ipynb)
 
 ## Contributors
 
