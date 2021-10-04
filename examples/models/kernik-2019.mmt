@@ -1,6 +1,6 @@
 [[model]]
 name: kernik-2019
-version: 20210826
+version: 20210929
 mmt_authors: Michael Clerx
 desc: """
     Myokit implementation of the induced pluripotent stem-cell derived
@@ -56,9 +56,7 @@ pace = 0
 
 
 [membrane]
-#i_voltageclamp = (V - v_clamp) / R_clamp
-#    R_clamp = 0.02
-dot(V) = -(
+i_ion = (
     + ik1.i_K1
     + ito.i_to
     + ikr.i_Kr
@@ -72,8 +70,10 @@ dot(V) = -(
     + ifunny.i_f
     + ibna.i_b_Na
     + ibca.i_b_Ca
-    + stimulus.i_stim
 )
+    in [A/F]
+dot(V) = -(i_ion + stimulus.i_stim)
+    label membrane_potential
     in [mV]
 
 
