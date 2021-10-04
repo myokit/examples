@@ -20,7 +20,11 @@ jobs:
           python-version: 3.9
           architecture: x64
 
-      - name: install requirements
+      - name: install system dependencies
+        run: |
+          sudo ./.github/workflows/install-ubuntu-dependencies.sh
+
+      - name: install python dependencies
         run: |
           python --version
           python -m pip install --upgrade pip setuptools wheel

@@ -1,14 +1,14 @@
-name: Notebooks
+name: Links
 
 on:
   schedule:
-    # 5am on monday (minute, hour, day, month, day-of-the-week)
-    - cron:  '0 5 * * 1'
+    # 4am on monday (minute, hour, day, month, day-of-the-week)
+    - cron:  '0 4 * * 1'
 
 jobs:
 
   build-and-test:
-    name: Notebooks
+    name: Links
     runs-on: ubuntu-latest
 
     steps:
@@ -20,13 +20,13 @@ jobs:
           python-version: 3.9
           architecture: x64
 
-      - name: install requirements
+      - name: install python dependencies
         run: |
           python --version
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install -r requirements.txt
 
-      - name: test notebooks
+      - name: test links
         run: |
           python test.py links
 
