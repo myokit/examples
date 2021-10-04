@@ -13,9 +13,9 @@ Software developers may also want to check out Myokit's [github repository](http
 
 ## 1. Running simulations
 
-1. **Simulating an action potential**
-   [![github](img/github.svg)](examples/1-1-simulating-an-action-potential.ipynb)
+1. [![github](img/github.svg)](examples/1-1-simulating-an-action-potential.ipynb)
    [![nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-1-simulating-an-action-potential.ipynb)
+   **Simulating an action potential**:
    Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
 
 2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-2-logging-simulation-results.ipynb)
