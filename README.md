@@ -13,13 +13,15 @@ Software developers may also want to check out Myokit's [github repository](http
 
 ## 1. Running simulations
 
-1. [![github](img/github.svg)](examples/1-1-simulating-an-action-potential.ipynb)
-   [![nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-1-simulating-an-action-potential.ipynb)
-   **Simulating an action potential**:
+1. **Simulating an action potential**:
    Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
+   [![github](img/github.svg)](examples/1-1-simulating-an-action-potential.ipynb)
+   [![nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-1-simulating-an-action-potential.ipynb)
 
-2. [Logging simulation results](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-2-logging-simulation-results.ipynb)
-   : Selecting variables by name or using logging flags; Logging derivatives of state variables; Continuing on from a previous simulation; Selecting which points to log; Storing results to disk.
+2. **Logging simulation results**:
+   Selecting variables by name or using logging flags; Logging derivatives of state variables; Continuing on from a previous simulation; Selecting which points to log; Storing results to disk.
+   [![github](img/github.svg)](examples/1-2-logging-simulation-results.ipynb)
+   [![nbviewer](img/nbviewer.svg)](](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-2-logging-simulation-results.ipynb)
 
 3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-3-starting-stopping.ipynb)
    : Starting and stoppping simulations; Pre-pacing to a "steady state"; Simulating the effects of parameter changes.
