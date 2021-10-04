@@ -8,23 +8,23 @@ These example notebooks show how [Myokit](http://myokit.org) can be used in a va
 They accompany the detailed information on the individual classes and methods found in the [API documentation](https://myokit.readthedocs.io).
 Software developers may also want to check out Myokit's [github repository](https://github.com/MichaelClerx/myokit/).
 
-- [Before you begin](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/0-1-before-you-begin.ipynb)
-  : If you're not sure how to use these examples, start here.
+- **Before you begin**: If you're not sure how to use these examples, start here.
+   [![View on github](img/github.svg)](examples/0-1-before-you-begin.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/0-1-before-you-begin.ipynb)
 
 ## 1. Running simulations
 
-1. **Simulating an action potential**:
-   Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
-   [![github](img/github.svg)](examples/1-1-simulating-an-action-potential.ipynb)
-   [![nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-1-simulating-an-action-potential.ipynb)
+1. **Simulating an action potential**: Covers loading a model, protocol, and script; creating a simulation; running a simulation; plotting simulation results with matplotlib.
+   [![View on github](img/github.svg)](examples/1-1-simulating-an-action-potential.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-1-simulating-an-action-potential.ipynb)
 
-2. **Logging simulation results**:
-   Selecting variables by name or using logging flags; Logging derivatives of state variables; Continuing on from a previous simulation; Selecting which points to log; Storing results to disk.
-   [![github](img/github.svg)](examples/1-2-logging-simulation-results.ipynb)
-   [![nbviewer](img/nbviewer.svg)](](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-2-logging-simulation-results.ipynb)
+2. **Logging simulation results**: Selecting variables by name or using logging flags; Logging derivatives of state variables; Continuing on from a previous simulation; Selecting which points to log; Storing results to disk.
+   [![View on github](img/github.svg)](examples/1-2-logging-simulation-results.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-2-logging-simulation-results.ipynb)
 
-3. [Starting, stopping, pre-pacing, and loops](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-3-starting-stopping.ipynb)
-   : Starting and stoppping simulations; Pre-pacing to a "steady state"; Simulating the effects of parameter changes.
+3. **Starting, stopping, pre-pacing, and loops**: Starting and stoppping simulations; Pre-pacing to a "steady state"; Simulating the effects of parameter changes.
+   [![View on github](img/github.svg)](examples/1-3-starting-stopping.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/1-3-starting-stopping.ipynb)
 
 4. Controlling the solver
     - [ ] Simulation errors
@@ -37,16 +37,19 @@ Software developers may also want to check out Myokit's [github repository](http
 
 ## 2. Using the IDE
 
-1. [Exploring models in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/2-1-exploring-models-in-the-ide.ipynb)
-   : Starting the IDE; Using the Explorer; Graphing model structure; Getting information about variables; Running embedded scripts.
+1. **Exploring models in the IDE**: Starting the IDE; Using the Explorer; Graphing model structure; Getting information about variables; Running embedded scripts.
+   [![View on github](img/github.svg)](examples/2-1-exploring-models-in-the-ide.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/2-1-exploring-models-in-the-ide.ipynb)
 
 2. Creating protocols in the IDE
     - [ ] MMT syntax, link to full
     - [ ] Plotting
     - [ ] Models without pacing (Purkinje)
 
-3. [Running scripts in the IDE](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/2-3-running-scripts-in-the-ide.ipynb)
-   : Briefly discusses running embedded scripts, and the pros and cons of this feature.
+3. **Running scripts in the IDE**:
+   Briefly discusses running embedded scripts, and the pros and cons of this feature.
+   [![View on github](img/github.svg)](examples/2-3-running-scripts-in-the-ide.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/examples/2-3-running-scripts-in-the-ide.ipynb)
 
 ## 3. Working with models
 
@@ -212,18 +215,38 @@ This section contains notebooks that explain or define some of the trickier part
 They are used in Myokit development, and document tricky decisions made along the way.
 These notebooks have not been reviewed or checked extensively, so some errors may be present.
 
-1. [Pacing](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t1-pacing.ipynb)
-2. [Logging](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t2-logging.ipynb)
-3. [CVODE(s) single-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t3-cvodes-simulation.ipynb)
-4. [OpenCL multi-cell simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t4-opencl-simulation.ipynb)
-5. [HH channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t5-hh-channels.ipynb)
-6. [Markov channel models](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t6-markov-channels.ipynb)
-7. [Rush-Larsen updates](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t7-rush-larsen.ipynb)
+1. **Pacing**
+   [![View on github](img/github.svg)](technical-notes/t1-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t1-pacing.ipynb)
+2. **Logging**
+   [![View on github](img/github.svg)](technical-notes/t2-logging.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t2-logging.ipynb)
+3. **CVODE(s) single-cell simulations**
+   [![View on github](img/github.svg)](technical-notes/t3-cvodes-simulation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t3-cvodes-simulation.ipynb)
+4. **OpenCL multi-cell simulations**
+   [![View on github](img/github.svg)](technical-notes/t4-opencl-simulation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t4-opencl-simulation.ipynb)
+5. **HH channel models**
+   [![View on github](img/github.svg)](technical-notes/t5-hh-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t5-hh-channels.ipynb)
+6. **Markov channel models**
+   [![View on github](img/github.svg)](technical-notes/t6-markov-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t6-markov-channels.ipynb)
+7. **Rush-Larsen updates**
+   [![View on github](img/github.svg)](technical-notes/t7-rush-larsen.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t7-rush-larsen.ipynb)
 
-- [Simulation test case: Simple model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tA-test-case-simple.ipynb)
+- **Simulation test case: Simple model**
+  [![View on github](img/github.svg)](technical-notes/tA-test-case-simple.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tA-test-case-simple.ipynb)
 - Simulation test case: HH ion channel model
-- [Simulation test case: PK model](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tC-test-case-pk-model.ipynb)
-- [Autodiff simulations](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tZ-autodiff.ipynb)
+- **Simulation test case: PK model**
+  [![View on github](img/github.svg)](technical-notes/tC-test-case-pk-model.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tC-test-case-pk-model.ipynb)
+- **Autodiff simulations**
+  [![View on github](img/github.svg)](technical-notes/tZ-autodiff.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tZ-autodiff.ipynb)
 
 ## Contributors
 
