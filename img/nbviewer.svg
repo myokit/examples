@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="20">
+  <defs>
+    <linearGradient id="workflow-fill" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop stop-color="#f47e3e" offset="0%"/>
+      <stop stop-color="#e46e2e" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <mask id="m"><rect width="100%" height="100%" rx="3" fill="#FFF"/></mask>
+  <g mask="url(#m)">
+    <rect width="100%" height="100%" fill="url(#workflow-fill)" />
+  </g>
+  <g font-family="Verdana,DejaVu Sans,sans-serif" font-size="11">
+    <text x="6" y="13" fill="#333333" fill-opacity=".3">nbviewer</text>
+    <text x="6" y="14" fill="#FFFFFF">nbviewer</text>
+  </g>
+</svg>
