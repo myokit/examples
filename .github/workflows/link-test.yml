@@ -2,8 +2,8 @@ name: Links
 
 on:
   schedule:
-    # 4am on monday (minute, hour, day, month, day-of-the-week)
-    - cron:  '0 4 * * 1'
+    # 4am on tuesday (minute, hour, day, month, day-of-the-week)
+    - cron:  '0 4 * * 2'
 
 jobs:
 
