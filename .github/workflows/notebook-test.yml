@@ -2,8 +2,8 @@ name: Notebooks
 
 on:
   schedule:
-    # 4am on tuesday (minute, hour, day, month, day-of-the-week)
-    - cron:  '0 4 * * 2'
+    # 4am on wednesday (minute, hour, day, month, day-of-the-week)
+    - cron:  '0 4 * * 3'
 
 jobs:
 
@@ -28,7 +28,7 @@ jobs:
         run: |
           python --version
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-test.txt
 
       - name: test notebooks
         run: |

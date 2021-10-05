@@ -7,14 +7,13 @@ import re
 import subprocess
 import sys
 
+import lxml.etree
+import markdown
 import nbconvert
 import requests
 
 # Natural sort regex
 _natural_sort_regex = re.compile(r'([0-9]+)')
-
-# Markdown link regex
-_markdown_link_regex = re.compile(r'\[([^]]+)\]\(([^\s]+)\)')
 
 # Don't check links twice
 _checked_links = {}
@@ -156,7 +155,7 @@ def check_links(root, path):
     ]
 
     # Load contents
-    if os.path.splitext(path)[1] == '.ipynb':
+    if os.path.splitext(path)[1].lower() == '.ipynb':
         # Convert notebook
         e = nbconvert.exporters.MarkdownExporter()
         code, _ = e.from_filename(os.path.join(root, path))
@@ -168,8 +167,10 @@ def check_links(root, path):
     # Method to check a local link
     def check_local(href):
         if href[:1] == '/':
+            # Root = current working dir, not system root!
             href = href[1:]
         else:
+            # All else, interpret as local path relative to checked file
             href = os.path.join(root, href)
         if not os.path.exists(href):
             return f'Unknown path: {href}'
@@ -184,15 +185,18 @@ def check_links(root, path):
         if response not in [200, 301, 302]:
             return f'HTTP {response}: {href}'
 
+    # Convert markdown to html
+    html = '<body>' + markdown.markdown(code) + '</body>'
+    doc = lxml.etree.fromstring(html)
+
     # Scan over links, create error message
     errors = []
-    for m in _markdown_link_regex.finditer(code):
-        name, href = m.groups()
+    for href in doc.xpath('//a//@href|//img//@src'):
 
         # Ignore figures inside notebook
-        if name == 'png' and href[:7] == 'output_' and href[-4:] == '.png':
+        if href[:7] == 'output_' and href[-4:] == '.png':
             continue
-        if name == 'svg' and href[:7] == 'output_' and href[-4:] == '.svg':
+        if href[:7] == 'output_' and href[-4:] == '.svg':
             continue
 
         # Convert selected http/https links to local root

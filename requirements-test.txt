@@ -1,3 +1,5 @@
 myokit>=1.33.0
 jupyter
 requests
+markdown
+lxml
