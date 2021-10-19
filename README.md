@@ -168,6 +168,7 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] OpenCL info & select
     - [ ] Setting step size (convergence)
     - [ ] 2d, OpenCL
+    - [ ] Interdependent components example: CellML import of Courtemanche
 
 0. Viewing multi-cell simulation results
     - [ ] Storing CSV log
