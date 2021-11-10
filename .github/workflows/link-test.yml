@@ -2,8 +2,8 @@ name: Links
 
 on:
   schedule:
-    # 4am on wednesday (minute, hour, day, month, day-of-the-week)
-    - cron:  '0 4 * * 3'
+    # 4am on thursday (minute, hour, day, month, day-of-the-week)
+    - cron:  '0 4 * * 4'
 
 jobs:
 
@@ -24,6 +24,7 @@ jobs:
         run: |
           python --version
           python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade certifi
           python -m pip install -r requirements-test.txt
 
       - name: test links
