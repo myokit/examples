@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+import warnings
 
 import lxml.etree
 import markdown
@@ -177,12 +178,23 @@ def check_links(root, path):
 
     # Method to check a remote link
     def check_remote(href):
+        # Get cached response
         try:
             response = _checked_links[href]
         except Exception:
-            response = _checked_links[href] = requests.head(href).status_code
+            response = None
 
-        if response not in [200, 301, 302]:
+        # Make a HEAD request
+        if response is None:
+            try:
+                response = requests.head(href).status_code
+            except requests.exceptions.SSLError:
+                # Ignore SSL certificates that can't be retrieved
+                warnings.warn(f'SSLError when checking {href}')
+                response = 'ssl-error'
+            _checked_links[href] = response
+
+        if response not in [200, 301, 302, 'ssl-error']:
             return f'HTTP {response}: {href}'
 
     # Convert markdown to html
