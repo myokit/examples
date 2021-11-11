@@ -1,7 +1,7 @@
 [[model]]
 name: ohara-2011
 display_name: O'Hara et al., 2011
-version: 20210816
+version: 20211111
 mmt_authors: Michael Clerx
 desc: """
     The O'Hara-Rudy dynamic (ORd) model for the undiseased human ventricular
@@ -10,6 +10,9 @@ desc: """
     This implementation is based on the original Matlab code provided by the
     authors. It was verified against the original code by comparing the
     calculated derivatives.
+    
+    The units in this file are consistent, although the units in the INaCa
+    component are probably not fully correct.
 
     References:
 
@@ -751,52 +754,60 @@ INaCa_ss = 0.2 * inaca.Gncx * allo * (JncxNa + 2 * JncxCa)
 
 #
 # INaK :: Sodium/Potassium ATPase current
+# Based on Smith and Crampin, 2004, PMBM
 # Page 14
 #
 [inak]
 use membrane.V
 use extra.Nao, sodium.Nai, sodium.Na_ss
 use extra.Ko, potassium.Ki, potassium.K_ss
-k1p = 949.5 [Hz]
-    in [Hz]
-k1m = 182.4 [Hz]
-    in [Hz]
-k2p = 687.2 [Hz]
-    in [Hz]
-k2m = 39.4 [Hz]
-    in [Hz]
-k3p = 1899 [Hz]
-    in [Hz]
-k3m = 79300 [Hz]
-    in [Hz]
-k4p = 639 [Hz]
-    in [Hz]
-k4m = 40 [Hz]
-    in [Hz]
+k1p = 949.5 [1/s]
+    in [1/s]
+k1m = 182.4 [1/s/mM]
+    in [1/s/mM]
+k2p = 687.2 [1/s]
+    in [1/s]
+k2m = 39.4 [1/s]
+    in [1/s]
+k3p = 1899 [1/s]
+    in [1/s]
+k3m = 79300 [1/s/mM^2]
+    in [1/s/mM^2]
+k4p = 639 [1/s]
+    in [1/s]
+k4m = 40 [1/s]
+    in [1/s]
 Knai0 = 9.073 [mM]
     in [mM]
 Knao0 = 27.78 [mM]
-    in [mM]
-delta = -0.1550
-Knai = Knai0 * exp(delta * V * phys.FRT / 3)
-    in [mM]
-Knao = Knao0 * exp((1.0-delta) * V * phys.FRT / 3)
     in [mM]
 Kki = 0.5 [mM]
     in [mM]
 Kko = 0.3582 [mM]
     in [mM]
-MgADP = 0.05
-MgATP = 9.8
-Kmgatp = 1.698e-7
-H = 1.0e-7
-eP = 4.2
-Khp = 1.698e-7
+delta = -0.1550
+MgADP = 0.05 [mM]
+    in [mM]
+MgATP = 9.8 [mM]
+    in [mM]
+Kmgatp = 1.698e-7 [mM]
+    in [mM]
+H = 1.0e-7 [mM]
+    in [mM]
+eP = 4.2 [mM]
+    in [mM]
+Khp = 1.698e-7 [mM]
+    in [mM]
 Knap = 224 [mM]
     in [mM]
 Kxkur = 292 [mM]
     in [mM]
 P = eP / (1 + H / Khp + Nai / Knap + Ki / Kxkur)
+    in [mM]
+Knai = Knai0 * exp(delta * V * phys.FRT / 3)
+    in [mM]
+Knao = Knao0 * exp((1 - delta) * V * phys.FRT / 3)
+    in [mM]
 a1 = (k1p * (Nai / Knai)^3) / ((1 + Nai / Knai)^3 + (1 + Ki / Kki)^2 - 1)
     in [Hz]
 b1 = k1m * MgADP
@@ -807,7 +818,7 @@ b2 = (k2m * (Nao / Knao)^3) / ((1 + Nao / Knao)^3 + (1 + Ko / Kko)^2 - 1)
     in [Hz]
 a3 = (k3p * (Ko / Kko)^2  ) / ((1 + Nao / Knao)^3 + (1 + Ko / Kko)^2 - 1)
     in [Hz]
-b3 = (k3m * P * H)/(1 + MgATP / Kmgatp)
+b3 = (k3m * P * H) / (1 + MgATP / Kmgatp)
     in [Hz]
 a4 = (k4p * MgATP / Kmgatp) / (1 + MgATP / Kmgatp)
     in [Hz]
@@ -829,7 +840,7 @@ JnakNa = 3 * (E1 * a3 - E2 * b3)
     in [1/s]
 JnakK  = 2 * (E4 * b1 - E3 * a1)
     in [1/s]
-Pnak = piecewise(cell.mode == 0, base, cell.mode == 1, 0.9*base, 0.7*base)
+Pnak = piecewise(cell.mode == 0, base, cell.mode == 1, 0.9 * base, 0.7 * base)
     in [C/F]
     base = 30 [C/F]
         in [C/F]
