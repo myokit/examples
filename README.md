@@ -178,6 +178,8 @@ Software developers may also want to check out Myokit's [github repository](http
 3. Setting the step size
     - [ ] Foward Euler method
     - [ ] Convergence analysis
+    - [ ] Rush & Larsen's method
+    - [ ] Bigger & better
 
 4. Running and debugging simulations
     - [ ] Using a progress reporter
