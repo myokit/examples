@@ -161,33 +161,36 @@ Software developers may also want to check out Myokit's [github repository](http
 
 ## 7. Multi-cell simulations
 
-0. Simulating strand and tissue
+1. Simulating strand and tissue
     - [ ] 1d, no OpenCL, binding
-    - [ ] Step size!
     - [ ] 1d, OpenCL
     - [ ] OpenCL info & select
-    - [ ] Setting step size (convergence)
     - [ ] 2d, OpenCL
     - [ ] Interdependent components example: CellML import of Courtemanche
 
-0. Viewing multi-cell simulation results
+2. Viewing multi-cell simulation results
     - [ ] Storing CSV log
     - [ ] Converting to block
     - [ ] Writing block (txt vs zip)
     - [ ] Displaying with DataBlock viewer
     - [ ] Movies
 
-0. Running simulations
-    - [ ] Setting step sizes again!
-    - [ ] Using find_nan (automatically)
+3. Setting the step size
+    - [ ] Foward Euler method
+    - [ ] Convergence analysis
+
+4. Running and debugging simulations
     - [ ] Using a progress reporter
+    - [ ] Using find_nan (automatically)
+    - [ ] Step sizes!
+    - [ ] l'hopital's rule
 
-0. Simulating with heterogeneity
-    - [ ] Scalar field
-    - [ ] With different cell types (field approach)
-    - [ ] Conductance field
+5. Simulating with heterogeneity
+    - [ ] Heterogeneity in parameters (scalar field, NxN)
+    - [ ] Heterogeneity in conductance (scalar field N-1xN-1)
+    - [ ] With different cell types (scalar field!)
 
-0. Simulating arbitrary networks
+6. Simulating arbitrary geometries
     - [ ] set_connections
 
 ## Appendix
