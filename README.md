@@ -161,7 +161,7 @@ Software developers may also want to check out Myokit's [github repository](http
 
 ## 7. Multi-cell simulations
 
-1. Simulating strand and tissue
+1. Simulating strands and tissue
     - [ ] 1d, no OpenCL, binding
     - [ ] 1d, OpenCL
     - [ ] OpenCL info & select
@@ -185,8 +185,9 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Using a progress reporter
     - [ ] Using find_nan (automatically)
     - [ ] Step sizes!
-    - [ ] l'hopital's rule
-
+    - [ ] l'hopital's rule (link to Maurice)
+    - [ ] precision and native maths
+    
 5. Simulating with heterogeneity
     - [ ] Heterogeneity in parameters (scalar field, NxN)
     - [ ] Heterogeneity in conductance (scalar field N-1xN-1)
