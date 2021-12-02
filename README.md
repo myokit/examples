@@ -63,11 +63,10 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Comparing models with step
     - [ ] Unit checking
 
-3. Modifying models using the API
-    - [ ] Adding variables
+3. Using the model API
+    - [ ] Create model, add component, variables, equations, units, labels
+    - [ ] Promoting/demoting
     - [ ] Getting functions with pyfunc
-    - [ ] Manipulating models
-    - [ ] Manipulating equations (variable, eq, lhs, rhs, derivatives, refs_by, refs_to)
 
 4. Units
     - [ ] Unit objects
