@@ -59,20 +59,23 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Annotations (bindings, labels, meta data)
 
 2. Implementing models
-    - [ ] Validation
-    - [ ] Comparing models with step
-    - [ ] Unit checking
+    - [ ] Validating the model structure
+    - [ ] Verifying model output with step
+    - [ ] Checking model units
 
-3. Using the model API
+3. Creating and manipulating models from the API
     - [ ] Create model, add component, variables, equations, units, labels
     - [ ] Promoting/demoting
-    - [ ] Getting functions with pyfunc
+    - [ ] State order
 
 4. Units
     - [ ] Unit objects
     - [ ] Predefined units
     - [ ] Quantities
     - [ ] Unit conversion
+
+5. Getting information about existing models
+    - [ ] Getting functions with pyfunc
 
 5. Working with multiple models
     - [ ] Identifying common variables
