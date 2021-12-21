@@ -200,17 +200,23 @@ Software developers may also want to check out Myokit's [github repository](http
 
 ## Appendix
 
-0. Matplotlib basics, see https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
+0. Using Matplotlib, see https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
     - [ ] Base on from https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
     - [ ] Show simple example, but with axes etc.
     - [ ] Then with subplots, and subplots_adjust
     - [ ] Then with gridspec
     - [ ] Then stop.
 
-0. Using numpy
+0. Using NumPy
     - [ ] Discuss log.npview() ?
     - [ ] Just show an example
     - [ ] And link to https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html
+
+0. Using Myokit from the command line
+
+0. Profiling CVODE(s) simulations
+    - [ ] It's probably logging (explain why, make graphs, reduce n vars, explain about "oversampling" = lots of interpolation)
+    - [ ] Using `myokit.run` and the `DEBUG_x` switches
 
 0. Developing Myokit
     - [ ] Yes please!
