@@ -263,9 +263,18 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
   [![View on github](img/github.svg)](technical-notes/tZ-autodiff.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tZ-autodiff.ipynb)
 
+## Myokit publications
+
+- PBMB examples (http://myokit.org/publications/pbmb-2016)
+
+## Tutorials
+
+- Hand-outs EWGCCE 2014 (http://myokit.org/tutorial/)
+- Hand-outs CINC 2018 (http://myokit.org/tutorial/)
+
 ## Contributors
 
-These examples and technical notebooks were created by Michael Clerx, with contributions from David Augustin, and feedback from several others.
+These examples, tutorials and technical notes were created by Michael Clerx, with contributions from David Augustin and Enno de Lange, and feedback from several others.
 
 ## License and re-use
 
