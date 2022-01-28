@@ -1,15 +1,15 @@
 [[model]]
 name: sampson-2010
-version: 20211111
+version: 20220128
 mmt_authors: Michael Clerx
 desc: """
     Model of the human Purkinje cell by Sampson et al. [1].
-    
+
     This implementation is based on the original fortran code published by the
     authors as supplement to [1]. It was verified against the original code by
     comparing the calculated derivatives (which matched to within machine
     precision).
-    
+
     [1] Sampson, Iyer, Marks, Kass (2010) A computational model of Purkinje fibre
         single cell electrophysiology: implications for the long QT syndrome
         Journal of Physiology
@@ -103,7 +103,7 @@ icat.l         =  5.48343768800000020e-01
 # Appendix page 1, table 1
 #
 [phys]
-F = 96.5 [C/mmol] : Faraday's constant
+F = 96.5 [C/mmol] : Faraday constant
     in [C/mmol]
 T = 310 [K] : Absolute temperature
     in [K]
@@ -119,7 +119,7 @@ VFFRT = F * VFRT
 # Simulation engine variables
 #
 [engine]
-time = 0 [ms] 
+time = 0 [ms]
     in [ms]
     bind time
 pace = 0
@@ -900,7 +900,7 @@ Isusmax = 0.0919908 [mS/uF]
 Isus = Isusmax * (1 / (1 + exp(-(V - 20 [mV]) / 12 [mV]))) * (V - nernst.EK)
     desc: new sustained outward current, TEA sensitive
     in [A/F]
-    
+
 #
 # Inward rectifying current (IK1)
 # Appendix page 16
@@ -1108,7 +1108,7 @@ Acap = 3.912e-4 [cm^2]
     in [cm^2]
     desc: """
         Capacitive membrane area
-        
+
         Note from original implementation:
         The assumption of 1uF/cm^2 holds for this model therefore Acap in cm^2
         is equal to whole cell capacitance in uF.

@@ -1,22 +1,23 @@
 [[model]]
 name: ohara-2011
 display_name: O'Hara et al., 2011
-version: 20211112
+version: 20220128
 mmt_authors: Michael Clerx
 desc: """
     The O'Hara-Rudy dynamic (ORd) model for the undiseased human ventricular
-    action potential and calcium transient.
+    action potential and calcium transient, as presented in [1].
 
     This implementation is based on the original Matlab code provided by the
     authors. It was verified against the original code by comparing the
-    calculated derivatives.
+    calculated derivatives. Where possible, the page of the appendix to [1]
+    that describes each component is indicated.
 
     References:
 
-    [1] O'Hara et al. (2011) Simulation of the Undiseased Human Cardiac
-    Ventricular Action Potential: Model Formulation and Experimental
-    Validation. PLoS Computational Biology
-    doi: 10.1371/journal.pcbi.1002061
+    [1] O'Hara, Virág, Varró, Rudy (2011) Simulation of the Undiseased Human
+        Cardiac Ventricular Action Potential: Model Formulation and 
+        Experimental Validation. PLoS Computational Biology
+        doi: 10.1371/journal.pcbi.1002061
 
     Original copyright notice:
     ---------------------------------------------------------------------------
@@ -134,12 +135,12 @@ mode = 0
     desc: The type of cell. Endo = 0, Epi = 1, Mid = 2
 L = 0.01 [cm] : Cell length
     in [cm]
-r = 0.0011 [cm] :  Cell radius
+r = 0.0011 [cm] : Cell radius
     in [cm]
 vcell = 1000 [uL/mL] * 3.14 * r * r * L
     in [uL]
     desc: Cell volume
-Ageo = 2*3.14 * r * r + 2 * 3.14 * r * L
+Ageo = 2 * 3.14 * r * r + 2 * 3.14 * r * L
     in [cm^2]
     desc: Geometric cell area
 Acap = 2 * Ageo
@@ -169,7 +170,7 @@ R = 8314 [J/kmol/K] : Gas constant
     in [J/kmol/K]
 T = 310 [K] : Temperature
     in [K]
-F = 96485 [C/mol] : Faraday's constant
+F = 96485 [C/mol] : Faraday constant
     in [C/mol]
 RTF = R * T / F
     in [mV]
@@ -208,7 +209,7 @@ EKs = phys.RTF * log((extra.Ko + PNaK * extra.Nao) / (potassium.Ki + PNaK * sodi
     in [mV]
 
 #
-# INa :: Fast Sodium current
+# INa: Fast sodium current
 # Page 6
 #
 # The fast sodium current is modelled using a Hodgkin-Huxley type formulation
@@ -272,8 +273,8 @@ INa = GNa * (V - nernst.ENa) * m^3 * ((1 - camk.f) * h * j + camk.f * hp * jp)
     desc: Fast sodium current
 
 #
-# INaL :: Late component of the Sodium current
-# Page 7
+# INaL: Late component of the sodium current
+# Page 7 of the appendix to [2]
 #
 [inal]
 use membrane.V
@@ -304,7 +305,7 @@ INaL = f_gnal * GNaL * (V - nernst.ENa) * m * ((1 - camk.f) * h + camk.f * hp)
     in [A/F]
 
 #
-# Ito :: Transient outward Potassium current
+# Ito: Transient outward potassium current
 # page 8
 #
 [ito]
@@ -365,9 +366,9 @@ Ito = Gto * (V - nernst.EK) * ((1 - camk.f) * a * i + camk.f * ap * ip)
     in [A/F]
 
 #
-# ICaL  :: L-type Calcium current
-# ICaNa :: Sodium current through the L-type Calcium channel
-# ICaK  :: Potassium current through the L-type Calcium channel
+# ICaL: L-type calcium current
+# ICaNa: Sodium current through the L-type calcium channel
+# ICaK: Potassium current through the L-type calcium channel
 # Page 9
 #
 # The ICaL channel is modeled using activation, inactivation (fast and slow),
@@ -493,7 +494,7 @@ ICaK  = (1 - camk.f) * PCaK  * PhiCaK  * g + camk.f * PCaKp  * PhiCaK  * gp
 
 
 #
-# IKr :: Rapid delayed rectifier Potassium current
+# IKr: Rapid delayed rectifier potassium current
 # Page 11
 #
 # Modelled with activation (fast and slow) and an instantaneous inactivation.
@@ -533,7 +534,7 @@ IKr = GKr * sqrt(extra.Ko / 5.4 [mM]) * x * r * (V - nernst.EK)
     in [A/F]
 
 #
-# IKs :: Slow delayed rectifier Potassium current
+# IKs: Slow delayed rectifier potassium current
 # Page 11
 #
 # Modelled with two activation channels
@@ -563,7 +564,7 @@ IKs = GKs * KsCa * x1 * x2 * (V - nernst.EKs)
     in [A/F]
 
 #
-# IK1 :: Inward rectifier Potassium current
+# IK1: Inward rectifier potassium current
 # Page 12
 #
 # Modelled with an activation channel and an instantaneous inactivation channel
@@ -589,7 +590,7 @@ IK1 = GK1 * sqrt(extra.Ko * 1 [1/mM]) * r * x * (V - nernst.EK)
     in [A/F]
 
 #
-# INaCa :: Sodium/Calcium exchange current
+# INaCa: Sodium/calcium exchange current
 # page 12
 #
 [inaca]
@@ -683,7 +684,7 @@ INaCa = 0.8 * Gncx * allo * (JncxNa + 2 * JncxCa)
     in [A/F]
 
 #
-# INaCa_ss :: Sodium/Calcium exchanger current into the L-type subspace
+# INaCa_ss: Sodium/calcium exchanger current into the L-type subspace
 # Page 12
 #
 [inacass]
@@ -750,8 +751,8 @@ INaCa_ss = 0.2 * inaca.Gncx * allo * (JncxNa + 2 * JncxCa)
     in [A/F]
 
 #
-# INaK :: Sodium/Potassium ATPase current
-# Based on Smith and Crampin, 2004, PMBM
+# INaK: Sodium/potassium ATPase current
+# Based on Smith and Crampin, 2004, PBMB
 # Page 14
 #
 [inak]
@@ -846,7 +847,7 @@ INaK = Pnak * (JnakNa + JnakK)
     in [A/F]
 
 #
-# IKb :: Background Potassium current
+# IKb: Background potassium current
 # Page 15
 #
 [ikb]
@@ -859,7 +860,7 @@ IKb = GKb * xkb * (V - nernst.EK)
     in [A/F]
 
 #
-# INab :: Background Sodium current
+# INab: Background sodium current
 # Page 15
 #
 [inab]
@@ -872,7 +873,7 @@ INab = PNab * V * phys.FFRT * (sodium.Nai * evf - extra.Nao) / (evf - 1)
     in [A/F]
 
 #
-# ICab :: Background Calcium current
+# ICab: Background calcium current
 # Page 15
 #
 [icab]
@@ -885,7 +886,7 @@ ICab = PCab * 4 * V * phys.FFRT * (calcium.Cai * evf2 - 0.341 * extra.Cao) / (ev
     in [A/F]
 
 #
-# IpCa :: Sarcolemmal Calcium pump current
+# IpCa: Sarcolemmal calcium pump current
 # Page 15
 #
 [ipca]
@@ -897,7 +898,7 @@ IpCa = GpCa * calcium.Cai / (0.0005 [mM] + calcium.Cai)
     in [A/F]
 
 #
-# Jrel :: SR Calcium release flux via Ryanodine receptor
+# Jrel: SR Calcium release flux via ryanodine receptor
 # Page 17
 #
 [ryr]
@@ -935,7 +936,7 @@ Jrel = (1 - camk.f) * Jrelnp + camk.f * Jrelp
     in [mM/ms]
 
 #
-# Jup :: Calcium uptake via SERCA pump
+# Jup: Calcium uptake via SERCA pump
 # Page 17
 #
 [serca]
@@ -967,7 +968,7 @@ Jdiff = (calcium.Ca_ss - calcium.Cai) / 0.2 [ms]
     in [mM/ms]
 
 #
-# Intracellular Sodium concentrations
+# Intracellular sodium concentrations
 # Page 18
 #
 [sodium]
@@ -1007,7 +1008,7 @@ dot(K_ss) = -IK_ss_tot * AFC / vss - diff.JdiffK
     in [mM]
 
 #
-# Intracellular Calcium concentrations and buffers
+# Intracellular calcium concentrations and buffers
 # Page 18
 #
 [calcium]
