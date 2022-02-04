@@ -231,37 +231,49 @@ They are used in Myokit development, and document tricky decisions made along th
 These notebooks have not been reviewed or checked extensively, so some errors may be present.
 
 1. **Pacing**
-   [![View on github](img/github.svg)](technical-notes/t1-pacing.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t1-pacing.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-1-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-1-pacing.ipynb)
 2. **Logging**
-   [![View on github](img/github.svg)](technical-notes/t2-logging.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t2-logging.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-2-logging.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-2-logging.ipynb)
 3. **CVODE(s) single-cell simulations**
-   [![View on github](img/github.svg)](technical-notes/t3-cvodes-simulation.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t3-cvodes-simulation.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-3-cvodes-simulation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-3-cvodes-simulation.ipynb)
 4. **OpenCL multi-cell simulations**
-   [![View on github](img/github.svg)](technical-notes/t4-opencl-simulation.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t4-opencl-simulation.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-4-opencl-simulation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-4-opencl-simulation.ipynb)
 5. **HH channel models**
-   [![View on github](img/github.svg)](technical-notes/t5-hh-channels.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t5-hh-channels.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-5-hh-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-5-hh-channels.ipynb)
 6. **Markov channel models**
-   [![View on github](img/github.svg)](technical-notes/t6-markov-channels.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t6-markov-channels.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-6-markov-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-6-markov-channels.ipynb)
 7. **Rush-Larsen updates**
-   [![View on github](img/github.svg)](technical-notes/t7-rush-larsen.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/t7-rush-larsen.ipynb)
+   [![View on github](img/github.svg)](technical-notes/1-7-rush-larsen.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/1-7-rush-larsen.ipynb)
 
-- **Simulation test case: Simple model**
-  [![View on github](img/github.svg)](technical-notes/tA-test-case-simple.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tA-test-case-simple.ipynb)
-- Simulation test case: HH ion channel model
-- **Simulation test case: PK model**
-  [![View on github](img/github.svg)](technical-notes/tC-test-case-pk-model.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tC-test-case-pk-model.ipynb)
-- **Autodiff simulations**
-  [![View on github](img/github.svg)](technical-notes/tZ-autodiff.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/tZ-autodiff.ipynb)
+### Simulation test cases
+   
+1. **Simple model**
+  [![View on github](img/github.svg)](technical-notes/2-1-test-case-simple.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/2-1-test-case-simple.ipynb)
+2. Simulation test case: HH ion channel model
+3. **Simulation test case: PK model**
+  [![View on github](img/github.svg)](technical-notes/2-3-test-case-pk-model.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/2-3-test-case-pk-model.ipynb)
+4. **Autodiff simulations**
+  [![View on github](img/github.svg)](technical-notes/2-x-autodiff.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/2-x-autodiff.ipynb)
+
+### Python details 
+
+1. **Python details: Equality, hashes & pickling**
+   [![View on github](img/github.svg)](technical-notes/3-1-equality-hashes-and-pickling.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-1-equality-hashes-and-pickling.ipynb)
+2. **Python details: Floats, units, and pacing**
+   [![View on github](img/github.svg)](technical-notes/3-2-floats-units-and-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-2-floats-units-and-pacing.ipynb)
+
 
 ## Myokit publications
 
