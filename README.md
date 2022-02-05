@@ -267,12 +267,12 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 
 ### Python details 
 
-1. **Python details: Equality, hashes & pickling**
-   [![View on github](img/github.svg)](technical-notes/3-1-equality-hashes-and-pickling.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-1-equality-hashes-and-pickling.ipynb)
-2. **Python details: Floats, units, and pacing**
-   [![View on github](img/github.svg)](technical-notes/3-2-floats-units-and-pacing.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-2-floats-units-and-pacing.ipynb)
+1. **Python details: Floats, units, and pacing**
+   [![View on github](img/github.svg)](technical-notes/3-1-floats-units-and-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-1-floats-units-and-pacing.ipynb)
+2. **Python details: Equality, hashes & pickling**
+   [![View on github](img/github.svg)](technical-notes/3-2-equality-hashes-and-pickling.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-2-equality-hashes-and-pickling.ipynb)
 
 
 ## Myokit publications
