@@ -1,6 +1,6 @@
 [[model]]
 name: decker-2009
-version: 20220128
+version: 20220206
 mmt_authors: Michael Clerx
 desc: """
     Myokit implementation of Decker 2009 (aka HRd2009).
@@ -48,7 +48,7 @@ calcium.uCa_sr  = 0.02414815836489
 calcium.uCa_cal = 0.02510283012807
 calcium.uCa_jsr = 6.99469048060168
 calcium.Ca_nsr  = 1.159939751141822
-calcium.fTrap   = 0.001886134160513385
+camk.f_trapped  = 0.001886134160513385
 sodium.Nai      = 6.935574785129178
 sodium.Na_sr    = 6.935607113935819
 potassium.K_i   = 145.5682623234052
@@ -105,21 +105,27 @@ pace = 0
 # Total membrane currents and potential
 #
 [membrane]
+use stimulus.i_stim
 dot(V) = -(i_ion + i_stim + i_diff)
     in [mV]
     label membrane_potential
     desc: The membrane potential
-stim_amplitude = -80 [A/F]
-    in [A/F]
-i_stim = engine.pace * stim_amplitude
-    desc: The stimulus current
-    in [A/F]
 i_diff = 0 [A/F]
     desc: The diffusion current from cell to cell
     in [A/F]
     bind diffusion_current
 i_ion = sodium.INa_tot + potassium.IK_tot + calcium.ICa_tot + chloride.ICl_tot
     desc: The remaining transmembrane currents
+    in [A/F]
+
+#
+# Stimulus current
+#
+[stimulus]
+stim_amplitude = -80 [A/F]
+    in [A/F]
+i_stim = engine.pace * stim_amplitude
+    desc: The stimulus current
     in [A/F]
 
 #
@@ -227,227 +233,6 @@ ECl = -phys.RTF * log(extra.Clo / chloride.Cl_i)
     in [mV]
 
 #
-# Calcium in subspaces
-# Described in sections P and Q
-#
-[calcium]
-use membrane.V as V
-use calciumb.Ca_i
-# Iup
-Km_CaMK = 0.15
-DKm_PLB = 0.00017 [mM]
-    in [mM]
-DIupBar = 0.75
-Km_up   = 0.00092 [mM]
-    in [mM]
-IupBar  = 0.004375 [mM/ms]
-    in [mM/ms]
-Iup = (DIupBar * zz + 1) * IupBar * Ca_i / (Ca_i + Km_up - DKm_PLB * zz)
-    zz = calcium.active / (Km_CaMK + calcium.active)
-    desc: Ca2+ uptake from myoplasm to NSR
-    in [mM/ms]
-# Ileak
-NSRBar = 15 [ms]
-    in [ms]
-Ileak = 0.004375 * Ca_nsr / NSRBar
-    desc: Ca2+ leask from JSR to myoplasm
-    in [mM/ms]
-# Itr
-Itr = (Ca_nsr - Ca_jsr) / 25 [ms]
-    desc: Ca2+ transfer from NSR to JSR (section P)
-    in [mM/ms]
-# Unbuffered Calcium SR and cal
-dot(uCa_sr) = (
-        inaca.INaCaSS * cell.AFC / cell.v_sr
-        + irel.Irel * cell.v_jsr / cell.v_sr
-        - (diff.Ca + diff.CaL)
-        )
-    in [mM]
-dot(uCa_cal) = (
-        - ical.ICaL * cell.AFC / (cell.v_cal * 2)
-        + diff.CaL * cell.v_sr / cell.v_cal
-        )
-    in [mM]
-# Ca_JSR
-Km_csqn = 0.8 [mM]
-    in [mM]
-csqnBar = 10 [mM]
-    in [mM]
-dot(uCa_jsr) =  Itr - irel.Irel
-    in [mM]
-Ca_jsr = (sqrt(b*b + 4*c) - b) / 2
-    in [mM]
-    b = csqnBar + Km_csqn - uCa_jsr     # Differs from paper!
-        in [mM]
-    c = uCa_jsr * Km_csqn               # Differs from paper!
-        in [mM^2]
-# Ca_NSR (No buffer formulation is used for Ca_NSR)
-dot(Ca_nsr) =  Iup - Ileak - Itr * cell.v_jsr / cell.v_nsr
-    in [mM]
-# Active CaMKII
-alpha = 0.05 [1/ms]
-    in [1/ms]
-beta  = 6.8e-4 [1/ms]
-    in [1/ms]
-CaMK0  = 0.05
-Km_CaM = .0015 [mM]
-    in [mM]
-active = CaMK0 * (1 - fTrap) / (1 + Km_CaM / calciumb.Ca_sr) + fTrap
-    desc: Fraction of active calmodulin
-dot(fTrap) =  alpha * active * (active - fTrap) - beta * fTrap
-    desc: Fraction of trapped calmodulin
-ICa_tot = (ical.ICaL
-        + icab.ICab
-        + ipca.IpCa
-        - inaca.INaCa * 2
-        - inaca.INaCaSS * 2 )
-    desc: Total Calcium current through the membrane
-    in [A/F]
-# Internal Calcium
-dot(uCa_i) = (diff.Ca * cell.v_sr / cell.v_cyt
-         - (icab.ICab + ipca.IpCa - 2 * inaca.INaCa) * cell.AFC / (cell.v_cyt * 2)
-         - (calcium.Iup - calcium.Ileak) * cell.v_nsr / cell.v_cyt)
-    in [mM]
-
-#
-# Buffered Calcium concentrations
-#
-[calciumb]
-use calcium.uCa_i
-use calcium.uCa_sr
-use calcium.uCa_cal
-# Ca_SR, Ca_CaL
-BSRBar = 0.047 [mM]
-    in [mM]
-BSLBar = 1.124 [mM]
-    in [mM]
-BS_sum = BSRBar + BSLBar
-    in [mM]
-Km_BSR = 0.00087 [mM]
-    in [mM]
-Km_BSL = 0.0087 [mM]
-    in [mM]
-Km_sum2 = Km_BSR + Km_BSL
-    in [mM]
-Km_pro2 = Km_BSR * Km_BSL
-    in [mM^2]
-sum2 = BS_sum + Km_sum2
-    in [mM]
-pro_sum2 = Km_pro2 + BSRBar * Km_BSL + BSLBar * Km_BSR
-    in [mM^2]
-Ca_sr = (- b / 3
-        + (2 / 3) * sqrt(b*b - 3 * c)
-        * cos(acos((9*b*c - 2*b^3 - 27*d) / (2 * (b*b - 3 * c)^1.5))/3)
-        )
-    in [mM]
-    b = sum2 - uCa_sr
-        in [mM]
-    c = pro_sum2 - Km_sum2 * uCa_sr
-        in [mM^2]
-    d = -Km_pro2 * uCa_sr
-        in [mM^3]
-Ca_cal = (- b / 3
-        + (2 / 3) * sqrt(b*b - 3 * c)
-        * cos(acos((9*b*c - 2*b^3 - 27*d) / (2 * (b*b - 3 * c)^1.5))/3)
-        )
-    in [mM]
-    b = sum2 - uCa_cal
-        in [mM]
-    c = pro_sum2 - Km_sum2 * uCa_cal
-        in [mM^2]
-    d = -Km_pro2 * uCa_cal
-        in [mM^3]
-cmdnBar = 5e-2 [mM]
-    in [mM]
-trpnBar = 7e-2 [mM]
-    in [mM]
-Km_cmdn = 2.38e-3 [mM]
-    in [mM]
-Km_trpn = 5e-4 [mM]
-    in [mM]
-Km_sum = Km_trpn + Km_cmdn
-    in [mM]
-Km_pro = Km_cmdn * Km_trpn
-    in [mM^2]
-sum = cmdnBar + trpnBar + Km_trpn + Km_cmdn
-    in [mM]
-pro = Km_pro + trpnBar * Km_cmdn + cmdnBar * Km_trpn
-    in [mM^2]
-Ca_i = - b / 3 + (2/3) * sqrt(b*b - 3*c) * cos(
-       acos((9*b*c - 2*b^3 - 27*d) / (2 * (b*b - 3*c)^1.5)) / 3)
-    in [mM]
-    b = sum - uCa_i
-        in [mM]
-    c = pro - uCa_i * Km_sum
-        in [mM^2]
-    d = -Km_pro * uCa_i
-        in [mM^3]
-
-
-#
-# Chloride concentrations
-# Described in section Q
-#
-[chloride]
-dot(Cl_i) =  r1 * iclb.IClB + r2 * diff.Cl + cot.CTNaCl + cot.CTKCl
-    r1 = cell.AFC / cell.v_cyt
-        in [M*F/C]
-    r2 = cell.v_sr / cell.v_cyt
-    desc: Intracellular Chloride concentration
-    in [mM]
-dot(Cl_sr) =  iclca.IClCa * r1 - diff.Cl
-    r1 = cell.AFC / cell.v_sr
-        in [M*F/C]
-    desc: Intracellular Chloride concentration in the SR subspace (SS,SR)
-    in [mM]
-ICl_tot = iclb.IClB + iclca.IClCa
-    desc: Total chloride current through the membrane
-    in [A/F]
-
-#
-# Sodium concentrations
-# Described in section Q
-#
-[sodium]
-dot(Nai) =  -r1 * INa_cyt + r2 * diff.Na + cot.CTNaCl
-    r1 = cell.AFC / cell.v_cyt
-        in [M*F/C]
-    r2 = cell.v_sr / cell.v_cyt
-    desc: Intracellular sodium concentration
-    in [mM]
-dot(Na_sr) =  -(3 * inaca.INaCaSS * r1 + diff.Na)
-    r1 = cell.AFC / cell.v_sr
-        in [M*F/C]
-    desc: Intracellular sodium concentration in the SR subspace (SS,SR)
-    in [mM]
-INa_cyt = (ina.INa
-        + inal.INaL
-        + inab.INaB
-        + inak.INaK * 3
-        + inaca.INaCa * 3 )
-    in [A/F]
-INa_tot = INa_cyt + inaca.INaCaSS * 3
-    desc: Total Sodium current
-    in [A/F]
-
-#
-# Potassium concentrations
-# Described in section Q
-#
-[potassium]
-dot(K_i) =  -potassium.IK_tot * (cell.AFC / cell.v_cyt) + cot.CTKCl
-    desc: Potassium concentrations
-    in [mM]
-IK_tot = (ik1.IK1
-       + ikr.IKr
-       + iks.IKs
-       + ikur.IKur
-       + ito.ITo
-       - inak.INaK * 2)
-   in [A/F]
-# Note: removed stimulus current from this sum
-
-#
 # ICaL
 # Described in section A of the supplement to [1]
 #
@@ -553,7 +338,6 @@ ICaL = ICaLBar * (O + Os)
             p21 * 4 * vff * (gCai * calciumb.Ca_cal * e2v - gCao * extra.Cao) / (e2v - 1))
         in [A/F]
         e2v = exp(2 * vf)
-
 
 #
 # Markov model of IKs
@@ -969,7 +753,7 @@ CTKCl = KClBar * z1 / (z1 + z2)
 [irel]
 beta = 4.75 [ms] * (1 + delta)
     in [ms]
-    delta = 1 / (1 + (0.28 / calcium.active)^10)
+    delta = 1 / (1 + (0.28 / camk.active)^10)
 kappa = 0.1125 [M*F/C/ms]
     in [M*F/C/ms]
 alpha = beta * kappa
@@ -981,6 +765,241 @@ tau = beta / (1 + (0.0123 [mM] / calcium.Ca_jsr))
 dot(Irel) = -(inf + Irel) / tau
     desc: Ca2+ release from JSR to myoplasm
     in [mM/ms]
+
+#
+# Ileak: Ca2+ leask from JSR to myoplasm
+#
+[ileak]
+NSRBar = 15 [ms]
+    in [ms]
+Ileak = 0.004375 * calcium.Ca_nsr / NSRBar
+    desc: Ca2+ leask from JSR to myoplasm
+    in [mM/ms]
+
+#
+# Iup: Ca2+ uptake from myoplasm to NSR
+#
+[iup]
+use calciumb.Ca_i
+Km_CaMK = 0.15
+DKm_PLB = 0.00017 [mM]
+    in [mM]
+DIupBar = 0.75
+Km_up   = 0.00092 [mM]
+    in [mM]
+IupBar  = 0.004375 [mM/ms]
+    in [mM/ms]
+Iup = (DIupBar * zz + 1) * IupBar * Ca_i / (Ca_i + Km_up - DKm_PLB * zz)
+    zz = camk.active / (Km_CaMK + camk.active)
+    desc: Ca2+ uptake from myoplasm to NSR
+    in [mM/ms]
+
+#
+# Active CaMKII
+#
+[camk]
+alpha = 0.05 [1/ms]
+    in [1/ms]
+beta  = 6.8e-4 [1/ms]
+    in [1/ms]
+CaMK0  = 0.05
+Km_CaM = .0015 [mM]
+    in [mM]
+active = CaMK0 * (1 - f_trapped) / (1 + Km_CaM / calciumb.Ca_sr) + f_trapped
+    desc: Fraction of active calmodulin
+dot(f_trapped) =  alpha * active * (active - f_trapped) - beta * f_trapped
+    desc: Fraction of trapped calmodulin
+
+#
+# Itr: Ca2+ transfer from NSR to JSR (section P)
+#
+[itr]
+use calcium.Ca_nsr, calcium.Ca_jsr
+Itr = (Ca_nsr - Ca_jsr) / 25 [ms]
+    desc: Ca2+ transfer from NSR to JSR (section P)
+    in [mM/ms]
+
+#
+# Calcium in subspaces
+# Described in sections P and Q
+#
+[calcium]
+use membrane.V as V
+# Unbuffered Calcium SR and cal
+dot(uCa_sr) = (
+        inaca.INaCaSS * cell.AFC / cell.v_sr
+        + irel.Irel * cell.v_jsr / cell.v_sr
+        - (diff.Ca + diff.CaL)
+        )
+    in [mM]
+dot(uCa_cal) = (
+        - ical.ICaL * cell.AFC / (cell.v_cal * 2)
+        + diff.CaL * cell.v_sr / cell.v_cal
+        )
+    in [mM]
+# Ca_JSR
+Km_csqn = 0.8 [mM]
+    in [mM]
+csqnBar = 10 [mM]
+    in [mM]
+dot(uCa_jsr) =  itr.Itr - irel.Irel
+    in [mM]
+Ca_jsr = (sqrt(b*b + 4*c) - b) / 2
+    in [mM]
+    b = csqnBar + Km_csqn - uCa_jsr     # Differs from paper!
+        in [mM]
+    c = uCa_jsr * Km_csqn               # Differs from paper!
+        in [mM^2]
+# Ca_NSR (No buffer formulation is used for Ca_NSR)
+dot(Ca_nsr) =  iup.Iup - ileak.Ileak - itr.Itr * cell.v_jsr / cell.v_nsr
+    in [mM]
+ICa_tot = (ical.ICaL
+        + icab.ICab
+        + ipca.IpCa
+        - inaca.INaCa * 2
+        - inaca.INaCaSS * 2 )
+    desc: Total Calcium current through the membrane
+    in [A/F]
+# Internal Calcium
+dot(uCa_i) = (diff.Ca * cell.v_sr / cell.v_cyt
+         - (icab.ICab + ipca.IpCa - 2 * inaca.INaCa) * cell.AFC / (cell.v_cyt * 2)
+         - (iup.Iup - ileak.Ileak) * cell.v_nsr / cell.v_cyt)
+    in [mM]
+
+#
+# Buffered Calcium concentrations
+#
+[calciumb]
+use calcium.uCa_i,  calcium.uCa_sr, calcium.uCa_cal
+# Ca_SR, Ca_CaL
+BSRBar = 0.047 [mM]
+    in [mM]
+BSLBar = 1.124 [mM]
+    in [mM]
+BS_sum = BSRBar + BSLBar
+    in [mM]
+Km_BSR = 0.00087 [mM]
+    in [mM]
+Km_BSL = 0.0087 [mM]
+    in [mM]
+Km_sum2 = Km_BSR + Km_BSL
+    in [mM]
+Km_pro2 = Km_BSR * Km_BSL
+    in [mM^2]
+sum2 = BS_sum + Km_sum2
+    in [mM]
+pro_sum2 = Km_pro2 + BSRBar * Km_BSL + BSLBar * Km_BSR
+    in [mM^2]
+Ca_sr = (- b / 3
+        + (2 / 3) * sqrt(b*b - 3 * c)
+        * cos(acos((9*b*c - 2*b^3 - 27*d) / (2 * (b*b - 3 * c)^1.5))/3)
+        )
+    in [mM]
+    b = sum2 - uCa_sr
+        in [mM]
+    c = pro_sum2 - Km_sum2 * uCa_sr
+        in [mM^2]
+    d = -Km_pro2 * uCa_sr
+        in [mM^3]
+Ca_cal = (- b / 3
+        + (2 / 3) * sqrt(b*b - 3 * c)
+        * cos(acos((9*b*c - 2*b^3 - 27*d) / (2 * (b*b - 3 * c)^1.5))/3)
+        )
+    in [mM]
+    b = sum2 - uCa_cal
+        in [mM]
+    c = pro_sum2 - Km_sum2 * uCa_cal
+        in [mM^2]
+    d = -Km_pro2 * uCa_cal
+        in [mM^3]
+cmdnBar = 5e-2 [mM]
+    in [mM]
+trpnBar = 7e-2 [mM]
+    in [mM]
+Km_cmdn = 2.38e-3 [mM]
+    in [mM]
+Km_trpn = 5e-4 [mM]
+    in [mM]
+Km_sum = Km_trpn + Km_cmdn
+    in [mM]
+Km_pro = Km_cmdn * Km_trpn
+    in [mM^2]
+sum = cmdnBar + trpnBar + Km_trpn + Km_cmdn
+    in [mM]
+pro = Km_pro + trpnBar * Km_cmdn + cmdnBar * Km_trpn
+    in [mM^2]
+Ca_i = - b / 3 + (2/3) * sqrt(b*b - 3*c) * cos(
+       acos((9*b*c - 2*b^3 - 27*d) / (2 * (b*b - 3*c)^1.5)) / 3)
+    in [mM]
+    b = sum - uCa_i
+        in [mM]
+    c = pro - uCa_i * Km_sum
+        in [mM^2]
+    d = -Km_pro * uCa_i
+        in [mM^3]
+
+#
+# Chloride concentrations
+# Described in section Q
+#
+[chloride]
+dot(Cl_i) =  r1 * iclb.IClB + r2 * diff.Cl + cot.CTNaCl + cot.CTKCl
+    r1 = cell.AFC / cell.v_cyt
+        in [M*F/C]
+    r2 = cell.v_sr / cell.v_cyt
+    desc: Intracellular Chloride concentration
+    in [mM]
+dot(Cl_sr) =  iclca.IClCa * r1 - diff.Cl
+    r1 = cell.AFC / cell.v_sr
+        in [M*F/C]
+    desc: Intracellular Chloride concentration in the SR subspace (SS,SR)
+    in [mM]
+ICl_tot = iclb.IClB + iclca.IClCa
+    desc: Total chloride current through the membrane
+    in [A/F]
+
+#
+# Sodium concentrations
+# Described in section Q
+#
+[sodium]
+dot(Nai) =  -r1 * INa_cyt + r2 * diff.Na + cot.CTNaCl
+    r1 = cell.AFC / cell.v_cyt
+        in [M*F/C]
+    r2 = cell.v_sr / cell.v_cyt
+    desc: Intracellular sodium concentration
+    in [mM]
+dot(Na_sr) =  -(3 * inaca.INaCaSS * r1 + diff.Na)
+    r1 = cell.AFC / cell.v_sr
+        in [M*F/C]
+    desc: Intracellular sodium concentration in the SR subspace (SS,SR)
+    in [mM]
+INa_cyt = (ina.INa
+        + inal.INaL
+        + inab.INaB
+        + inak.INaK * 3
+        + inaca.INaCa * 3 )
+    in [A/F]
+INa_tot = INa_cyt + inaca.INaCaSS * 3
+    desc: Total Sodium current
+    in [A/F]
+
+#
+# Potassium concentrations
+# Described in section Q
+#
+[potassium]
+dot(K_i) =  -(potassium.IK_tot + stimulus.i_stim) * (cell.AFC / cell.v_cyt) + cot.CTKCl
+    desc: Potassium concentrations
+    in [mM]
+IK_tot = (ik1.IK1
+       + ikr.IKr
+       + iks.IKs
+       + ikur.IKur
+       + ito.ITo
+       - inak.INaK * 2)
+   in [A/F]
+# Note: removed stimulus current from this sum
 
 #
 # Intracellular subspaces and myoplasmic concentrations
@@ -1034,3 +1053,4 @@ plt.xlabel('Time (ms)')
 plt.ylabel('Membrane potential (mV)')
 plt.plot(d.time(), d['membrane.V'])
 plt.show()
+
