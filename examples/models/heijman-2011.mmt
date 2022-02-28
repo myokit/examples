@@ -75,16 +75,16 @@ desc: """
 # Initial states
 membrane.V           = -87.491                 #   1  Vm
 calcium.uCa          = 1.3394e-2               #   2  Ca_i
-calcium.uCa_sr       = 2.3413e-2               #   3  Ca_sr
+calcium.uCa_ss       = 2.3413e-2               #   3  Ca_ss
 calcium.uCa_CaL      = 2.3413e-2               #   4  Ca_srCaL
 calcium.uCa_jsr      = 6.8659                  #   5  Ca_JSR
 calcium.Ca_nsr       = 1.1910                  #   6  Ca_NSR
 camk.trap            = 1.7546e-3               #   7  Ca_trap
 sodium.Na            = 6.8909                  #   8  Na_i
-sodium.Na_sr         = 6.8909                  #   9  Na_ss
+sodium.Na_ss         = 6.8909                  #   9  Na_ss
 potassium.K          = 1.4562e2                #  10  K_i
 chloride.Cl          = 20.273                  #  11  Cl_i
-chloride.Cl_sr       = 20.273                  #  12  Cl_SR
+chloride.Cl_ss       = 20.273                  #  12  Cl_SR
 irel.Irel_np         = 3.6675e-9               #  13  Irel
 ina_np.h             = 6.8172e-3               #  14  H
 ina_np.m             = 9.0163e-1               #  15  m
@@ -121,14 +121,14 @@ iks_np.C14           = 2.5967e-12
 iks_np.C15           = 8.7874e-15
 iks_np.O1            = 9.3722e-16
 iks_np.O2            = 1.6595e-17
-ical_camk.C          = 1
-ical_camk.O          = 0
-ical_camk.Cs         = 0
-ical_camk.Os         = 0
-ical_camk.CI         = 0
-ical_camk.OI         = 0
-ical_camk.CIs        = 0
-ical_camk.OIs        = 0
+ical_p.C          = 1
+ical_p.O          = 0
+ical_p.Cs         = 0
+ical_p.Os         = 0
+ical_p.CI         = 0
+ical_p.OI         = 0
+ical_p.CIs        = 0
+ical_p.OIs        = 0
 iks_pka.C1           = 0.95624
 iks_pka.C2           = 4.2127e-2
 iks_pka.C3           = 6.9597e-4
@@ -308,24 +308,16 @@ v_nsr = volume * 0.0552
 v_jsr = volume * 0.0048
     in [uL]
     desc: Volume of the junctional sarcoplasmic reticulum
-v_sr = volume * 0.02
+v_ss = volume * 0.02
     in [uL]
     desc: """
-    SR Subspace (SS,SR) volume
-
-    This space between the INaCa,ss channel, the Ito2 channel and the
-    Junctional Sarcoplasmic Reticulum (JSR) has no strict physical
-    boundaries but is included in the model because it is a region of the
-    cell that has slightly different concentrations of Ca, Na and K.
+    Dyadic subspace (SS) volume.
+    Note that ICaL does not flow into this space directly, but flows instead
+    into SS,CaL, a subspace embedded in this one.
     """
 v_CaL = volume * 0.002
     in [uL]
-    desc: """
-    L-type Ca2+ current Subspace (SS,CaL) volume
-
-    The area between the SR subspace and the ICaL channel has a slightly
-    different Ca2+ concentration than the rest of the cell.
-    """
+    desc: Subspace within the dyadic subspace, into which ICaL flows.
 
 #
 # Physical constants
@@ -437,9 +429,9 @@ dot(uCa) = - r1 * (icab.ICab + ipca.IpCa - 2 * inaca.INaCa) \
     r1 = cell.AF / (2 * cell.v_cyt)
         in [kmol/C/cm]
     r2 = (cell.v_nsr / cell.v_cyt)
-    r3 = (cell.v_sr / cell.v_cyt)
+    r3 = (cell.v_ss / cell.v_cyt)
 
-# Ca_sr and Ca_CaL buffer
+# Ca_ss and Ca_CaL buffer
 bsl_bar = 1.124 [mM] : Anionic Ca2+ binding sites on sarcolemma
     in [mM]
 bsr_bar = 0.047 [mM] : Anionic Ca2+ binding sites on SR
@@ -458,23 +450,23 @@ ss_sum = bar_sum + km_sum
     in [mM]
 ss_pro = bsr_bar * bsl_km + bsl_bar * bsr_km + km_pro
     in [mM^2]
-Ca_sr = -b/3 + 2/3 * sqrt(b*b - 3*c) * cos(acos((9*b*c - 2*b*b*b - 27*d) / (2*(b*b - 3*c)^1.5)) / 3)
-    desc: Calcium concentration in the SR subspace
+Ca_ss = -b/3 + 2/3 * sqrt(b*b - 3*c) * cos(acos((9*b*c - 2*b*b*b - 27*d) / (2*(b*b - 3*c)^1.5)) / 3)
+    desc: Calcium concentration in the SS subspace
     in [mM]
-    b = ss_sum - uCa_sr
+    b = ss_sum - uCa_ss
         in [mM]
-    c = ss_pro - uCa_sr * km_sum
+    c = ss_pro - uCa_ss * km_sum
         in [mM^2]
-    d = -km_pro * uCa_sr
+    d = -km_pro * uCa_ss
         in [mM^3]
-dot(uCa_sr) = -(r1 * inaca.INaCaSR + r2 * irel.Irel + diff.Idiff_Ca + diff.Idiff_sr)
-    desc: Unbuffered Calcium concentration in the SR subspace
+dot(uCa_ss) = -(r1 * inaca.INaCaSR + r2 * irel.Irel + diff.Idiff_Ca + diff.Idiff_ss)
+    desc: Unbuffered Calcium concentration in the SS subspace
     in [mM]
-    r1 = -cell.AF / cell.v_sr
+    r1 = -cell.AF / cell.v_ss
         in [kmol/C/cm]
-    r2 = -cell.v_jsr / cell.v_sr
+    r2 = -cell.v_jsr / cell.v_ss
 Ca_CaL = -b/3 + 2/3 * sqrt(b*b - 3*c) * cos(acos((9*b*c - 2*b*b*b - 27*d) / (2*(b*b - 3*c)^1.5)) / 3)
-    desc: Calcium concentration in the CaL subspace
+    desc: Calcium concentration in the SS,CaL subspace
     in [mM]
     b = ss_sum - uCa_CaL
         in [mM]
@@ -482,12 +474,12 @@ Ca_CaL = -b/3 + 2/3 * sqrt(b*b - 3*c) * cos(acos((9*b*c - 2*b*b*b - 27*d) / (2*(
         in [mM^2]
     d = -km_pro * uCa_CaL
         in [mM^3]
-dot(uCa_CaL) = -r1 * ical.ICaL + r2 * diff.Idiff_sr
-    desc: Unbuffered Calcium concentration in the CaL subspace
+dot(uCa_CaL) = -r1 * ical.ICaL + r2 * diff.Idiff_ss
+    desc: Unbuffered Calcium concentration in the SS,CaL subspace
     in [mM]
     r1 = cell.AF / (2 * cell.v_CaL)
         in [kmol/C/cm]
-    r2 = cell.v_sr / cell.v_CaL
+    r2 = cell.v_ss / cell.v_CaL
 # Junctional and network SR
 csqn_km  = 0.8 [mM] : Affinity of Calsequestrin for Ca2+
     in [mM]
@@ -525,11 +517,11 @@ ICa_tot = (ical.ICaL        # Section 1.26 of the thesis appendix
 dot(Cl) = r1 * iclb.IClb + ctnacl.CTNaCl + ctkcl.CTKCl + r2 * diff.Idiff_Cl
     r1 = cell.AF / cell.v_cyt
         in [kmol/C/cm]
-    r2 = cell.v_sr / cell.v_cyt
+    r2 = cell.v_ss / cell.v_cyt
     desc: Intracullular Chloride concentration
     in [mM]
-dot(Cl_sr) = r1 * iclca.IClCa - diff.Idiff_Cl
-    r1 = cell.AF / cell.v_sr
+dot(Cl_ss) = r1 * iclca.IClCa - diff.Idiff_Cl
+    r1 = cell.AF / cell.v_ss
         in [kmol/C/cm]
     desc: Intracullular Chloride concentration in the SR subspace (SS,SR)
     in [mM]
@@ -565,11 +557,11 @@ dot(Na) = r1 * INa_cyt + r2 * diff.Idiff_Na + ctnacl.CTNaCl
     in [mM]
     r1 = -cell.AF / cell.v_cyt
         in [kmol/C/cm]
-    r2 = cell.v_sr / cell.v_cyt
-dot(Na_sr) = -(r1 * inaca.INaCaSR + diff.Idiff_Na)
+    r2 = cell.v_ss / cell.v_cyt
+dot(Na_ss) = -(r1 * inaca.INaCaSR + diff.Idiff_Na)
     desc: Sodium concentration in the SR subspace
     in [mM]
-    r1 = 3 * cell.AF / cell.v_sr
+    r1 = 3 * cell.AF / cell.v_ss
         in [kmol/C/cm]
 INa_cyt = ( ina.INa
         + inab.INab
@@ -639,18 +631,18 @@ f_hat = if(val < 0, 0, val)
     val = (fp - ratio) / (0.9273 - ratio)
     ratio = 0.0269 + ICaL_arn / ICaL_tot
     desc: Effective fraction of phosphorylated ICaL channels
-ICaL = (1 - f_hat) * ical_np.ICaL + f_hat * ical_camk.ICaL
+ICaL = (1 - f_hat) * ical_np.ICaL + f_hat * ical_p.ICaL
     desc: Total ICaL current
     in [uA/cm^2]
 
 #
-# ICaL :: Non-phosphorylated channels
+# ICaL :: Non-PKA-phosphorylated channels
 # Described on page 272 of the thesis appendix, page 48 of [2]'s supplement
 #
 [ical_np]
 use membrane.V
 # Which [Ca] to use is a setting in the original model:
-use calcium.Ca_sr as Ca
+use calcium.Ca_ss as Ca
 # Activation: alpha, beta
 # Activation stays the same regardless of Ca2+ level
 ac_inf = 1 / ((1 + exp((13.56 [mV] - V) / 9.45 [mV])) * (1 + exp((25 [mV] + V) / -5 [mV])))
@@ -725,7 +717,7 @@ dot(CIs) = -(alpha + theta1 + xs) * CIs + ys    * Cs + delta1 * CI  + beta  * OI
 dot(OIs) = -(beta  + theta1 + xs) * OIs + ys    * Os + delta1 * OI  + alpha * CIs
 # Current
 PCa = 1.552e-4 [cm/s] * (1 + 0.4 * camk.f_ical)
-    desc: Permeability of non-phosphorylated channels
+    desc: Permeability of non-PKA-phosphorylated channels
     in [cm/s]
 IBar = PCa * 4 * V * phys.FFRT * (Ca * vv - 0.341 * extra.Cao) / (vv - 1)
     vv = exp(2 * V * phys.FRT)
@@ -736,13 +728,13 @@ ICaL = IBar * (O + Os)
     in [uA/cm^2]
 
 #
-# ICaL :: CaMKII Phosphorylated channels
+# ICaL :: PKA-Phosphorylated channels
 # Described on page 274 of the thesis appendix, page 49 of [2]'s supplement
 #
-[ical_camk]
+[ical_p]
 use membrane.V
 # Which [Ca] to use is a setting in the original model:
-use calcium.Ca_sr as Ca
+use calcium.Ca_ss as Ca
 # Activation: alpha, beta
 # Activation stays the same regardless of Ca2+ level
 ac_inf = 1 / ((1 + exp((4.798 [mV] + V) / -7.5699 [mV])) * (1 + exp((25 [mV] + V) / -5 [mV])))
@@ -774,7 +766,7 @@ delta_tau = 0.1 * camk.f_ical
 ss_cal_4  = 1 + (0.002 [mM] / Ca)^4
 ss_cal_10 = 1 + (0.01 [mM] / Ca)^10
 inca = 32.5 - (18 - delta_tau) / ss_cal_4 - 10 / ss_cal_10
-    desc: Ca2+ dependent component of inactivation constant for ICaL non-phosphorylated  channels and modulation by CaMKII
+    desc: Ca2+ dependent component of inactivation constant
 in_hi_inf = (0.0001 + in_inf) / 1.0001
     desc: Steady state value for inactivation at high Ca2+ levels
 in_hi_tau = 1 [ms] / (in_a + in_b / inca)
@@ -815,14 +807,14 @@ dot(CIs) = -(alpha + theta1 + xs) * CIs + ys    * Cs + delta1 * CI  + beta  * OI
 dot(OIs) = -(beta  + theta1 + xs) * OIs + ys    * Os + delta1 * OI  + alpha * CIs
 # Current
 PCa = 2.579e-4 [cm/s] * (1 + 0.1 * camk.f_ical)
-    desc: Permeability of non-phosphorylated channels
+    desc: Permeability of PKA-phosphorylated channels
     in [cm/s]
 IBar = PCa * 4 * V * phys.FFRT * (Ca * vv - 0.341 * extra.Cao) / (vv - 1)
     vv = exp(2 * V * phys.FRT)
-    desc: Maximum current through non-phosphorylated channels
+    desc: Maximum current through PKA-phosphorylated channels
     in [uA/cm^2]
 ICaL = IBar * (O + Os)
-    desc: ICaL current density through non-phosphorylated channels
+    desc: ICaL current density through PKA-phosphorylated channels
     in [uA/cm^2]
 
 #
@@ -893,14 +885,18 @@ tau_sr = 0.02 [ms]
     in [ms]
 Itr = (calcium.Ca_nsr - calcium.Ca_jsr) / tau_tr
     in [mM/ms]
-Idiff_sr = (calcium.Ca_sr - calcium.Ca_CaL) / tau_sr
+Idiff_ss = (calcium.Ca_ss - calcium.Ca_CaL) / tau_sr
     in [mM/ms]
-Idiff_Ca = (calcium.Ca_sr - calcium.Ca) / tau
+    desc: Ca2+ diffusion between the CaL space (near the LCCs) and the SS space.
+Idiff_Ca = (calcium.Ca_ss - calcium.Ca) / tau
     in [mM/ms]
-Idiff_Na = (sodium.Na_sr - sodium.Na) / tau
+    desc: Ca2+ diffusion between the SS space and bulk cytosol
+Idiff_Na = (sodium.Na_ss - sodium.Na) / tau
     in [mM/ms]
-Idiff_Cl = (chloride.Cl_sr - chloride.Cl) / tau
+    desc: Na+ diffusion between the SS space and bulk cytosol
+Idiff_Cl = (chloride.Cl_ss - chloride.Cl) / tau
     in [mM/ms]
+    desc: Cl- diffusion between the SS space and bulk cytosol
 
 #
 # IK1 :: Inward rectifier Potassium current
@@ -1295,7 +1291,7 @@ KmNai3 = Km_Nai^3
     in [mM^3]
 Na_i3  = sodium.Na^3
     in [mM^3]
-Na_ss3 = sodium.Na_sr^3
+Na_ss3 = sodium.Na_ss^3
     in [mM^3]
 exp1 = exp(eta * V * phys.FRT)
 exp2 = exp((eta-1) * V * phys.FRT)
@@ -1311,13 +1307,13 @@ INaCa = num / (denom1 * denom2 * (denom3 + denom4))
     denom4 = Km_Cai * Na_o3 * (1.0 + Na_i3 / KmNai3) + Na_i3 * extra.Cao + Na_o3 * calcium.Ca
         in [mM^4]
 INaCaSR = num / (denom1 * denom2 * (denom3 + denom4))
-    num = 0.2 * vMax * (Na_ss3 * extra.Cao * exp1 - Na_o3 * calcium.Ca_sr * exp2)
+    num = 0.2 * vMax * (Na_ss3 * extra.Cao * exp1 - Na_o3 * calcium.Ca_ss * exp2)
         in [mM^4*uA/cm^2]
-    denom1 = 1.0 + (Km_Ca / calcium.Ca_sr) ^ 2
+    denom1 = 1.0 + (Km_Ca / calcium.Ca_ss) ^ 2
     denom2 = 1.0 + kSat * exp2
-    denom3 = Km_Cao * Na_ss3 + KmNao3 * calcium.Ca_sr + KmNai3 * extra.Cao * (1.0 + calcium.Ca_sr / Km_Cai)
+    denom3 = Km_Cao * Na_ss3 + KmNao3 * calcium.Ca_ss + KmNai3 * extra.Cao * (1.0 + calcium.Ca_ss / Km_Cai)
         in [mM^4]
-    denom4 = Km_Cai * Na_o3 * (1 + Na_ss3 / KmNai3) + Na_ss3 * extra.Cao + Na_o3 * calcium.Ca_sr
+    denom4 = Km_Cai * Na_o3 * (1 + Na_ss3 / KmNai3) + Na_ss3 * extra.Cao + Na_o3 * calcium.Ca_ss
         in [mM^4]
     desc: Sodium-Calcium exchange current into the SR subspace (SS,SR)
     in [uA/cm^2]
@@ -1475,7 +1471,7 @@ irel_inf_np = alpha_np * y
     in [mM/ms]
 dot(Irel_np) = -(irel_inf_np + Irel_np) / irel_tau_np
     in [mM/ms]
-Ileak_ryr_np = k_ryr_leak_np * exp(calcium.Ca_jsr / Km_ryr_leak_np) * (calcium.Ca_jsr - calcium.Ca_sr)
+Ileak_ryr_np = k_ryr_leak_np * exp(calcium.Ca_jsr / Km_ryr_leak_np) * (calcium.Ca_jsr - calcium.Ca_ss)
     k_ryr_leak_np  = 1.75e-4 [1/ms]
         in [1/ms]
     Km_ryr_leak_np = 20 [mM]
@@ -1493,7 +1489,7 @@ irel_inf_p = 1.9925 * alpha_p * y
     in [mM/ms]
 dot(Irel_p)  = -(irel_inf_p + Irel_p ) / irel_tau_p
     in [mM/ms]
-Ileak_ryr_p  = k_ryr_leak_p * exp(calcium.Ca_jsr / Km_ryr_leak_p) * (calcium.Ca_jsr - calcium.Ca_sr)
+Ileak_ryr_p  = k_ryr_leak_p * exp(calcium.Ca_jsr / Km_ryr_leak_p) * (calcium.Ca_jsr - calcium.Ca_ss)
     in [mM/ms]
     k_ryr_leak_p = 5e-4 [1/ms]
         in [1/ms]
@@ -2905,7 +2901,7 @@ Km = 0.0015 [mM]    # data.Km=1.5e-3
     desc: CaMKII affinity for Ca2+/CaM activation
     in [mM]
 
-bound = CaMK0 * (1 - trap) / (1 + Km / calcium.Ca_sr)
+bound = CaMK0 * (1 - trap) / (1 + Km / calcium.Ca_ss)
     desc: Fraction of bound CaMKII
 active = bound + trap
     desc: Fraction of active CaMKII
