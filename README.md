@@ -257,7 +257,9 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 1. **Simple model**
   [![View on github](img/github.svg)](technical-notes/2-1-test-case-simple.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/2-1-test-case-simple.ipynb)
-2. Simulation test case: HH ion channel model
+2. **Simulation test case: HH ion channel model**
+  [![View on github](img/github.svg)](technical-notes/2-2-test-case-hh-current.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/2-2-test-case-hh-current.ipynb)
 3. **Simulation test case: PK model**
   [![View on github](img/github.svg)](technical-notes/2-3-test-case-pk-model.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/2-3-test-case-pk-model.ipynb)
