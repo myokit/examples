@@ -222,6 +222,7 @@ This adds a single float, and doesn't decrease it's reference count so that it n
 Over 50000 iterations, that looks like this:
 ![img](a1-plain-50000-leaking-1-pyfloat-per-iteration.png)
 
+
 ![img](b1-plain-500-leaking-1-pyfloat-per-iteration.png)
 
 ### Leaking 1 empty list per iteration
