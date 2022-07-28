@@ -275,7 +275,8 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 2. **Equality, hashes & pickling**
    [![View on github](img/github.svg)](technical-notes/3-2-equality-hashes-and-pickling.ipynb)
    [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/blob/main/technical-notes/3-2-equality-hashes-and-pickling.ipynb)
-
+3. **Memory leaks**
+   [![View with github Markdown viewer](img/github.svg)](technical-notes/3-3-memory-leaks/README.md)
 
 ## Myokit publications
 

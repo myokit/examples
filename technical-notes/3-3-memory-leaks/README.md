@@ -210,19 +210,40 @@ Based on all this, I wrote a script called [mem.py](./mem.py) that runs repeated
 
 To see if it works, I manually added some memory leaks into the code for CVODES simulations (don't worry, I removed it again).
 
-###
+### Leaking 1 Python float per iteration
 
+Here I added
+```
+PyFloat_FromDouble(1.23);
+```
+to the C-code.
+This adds a single float, and doesn't decrease it's reference count so that it never gets tidied up.
+
+Over 50000 iterations, that looks like this:
 ![img](a1-plain-50000-leaking-1-pyfloat-per-iteration.png)
-![img](a2-plain-50000-leaking-empty-list-per-iteration.png)
-![img](a3-plain-50000-leaking-1-double-per-iteration.png)
-![img](a4-plain-50000-leaking-100-doubles-per-iteration.png)
-![img](a5-plain-50000-no-deliberate-leak.png)
+
 ![img](b1-plain-500-leaking-1-pyfloat-per-iteration.png)
+
+### Leaking 1 empty list per iteration
+
+![img](a2-plain-50000-leaking-empty-list-per-iteration.png)
 ![img](b2-plain-500-leaking-1-empty-list-per-iteration.png)
+
+### Leaking 1 C double per iteration
+
+![img](a3-plain-50000-leaking-1-double-per-iteration.png)
 ![img](b3-plain-500-leaking-1-double-per-iteration.png)
-![img](b4-plain-500-leaking-100-doubles-per-iteration.png)
-![img](b5-plain-500-no-deliberate-leak.png)
 ![img](c3-plain-10000-leaking-1-double-per-iteration.png)
+
+### Leaking 100 C doubles per iteration
+
+![img](a4-plain-50000-leaking-100-doubles-per-iteration.png)
+![img](b4-plain-500-leaking-100-doubles-per-iteration.png)
+
+### No deliberate leaks
+
+![img](a5-plain-50000-no-deliberate-leak.png)
+![img](b5-plain-500-no-deliberate-leak.png)
 
 
 
