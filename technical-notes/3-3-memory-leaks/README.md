@@ -329,21 +329,37 @@ Finally, we look at the code with no deliberate leaks:
 
 ![img](a5-plain-50000-no-deliberate-leak.png)
 
-Hmmm
+I would love to report nice flat lines at this point, but the truth is we get a minor increase over time in RSS (though not in and VMS)!
+What's going on?
 
+I'm not entirely certain, but because it takes so long to show up (longer than when we leak 1 double per iteration) it could be either:
+
+1. A per-iteration leak of something smaller, e.g. a (single precision) float, or an integer.
+2. Something else, e.g. [fragmentation](https://en.wikipedia.org/wiki/Fragmentation_of_memory).
 
 ![img](b5-plain-500-no-deliberate-leak.png)
 
+No effect is visible in 500 iterations (except for the "warm up" at the very start).
+So if we want to detect these effects, we need many repeats.
 
+### Conclusion
 
+To me (Michael),
 
+1. The "no deliberate leak" case looks sufficiently different from the "leaking 1 float per iteration" case that it suggests either no leak or a very small leak in this test case.
+2. The remaining leak or fragmentation is small enough that it can be avoided by running simulations in a short-lived subprocess. 
+   For example, in [PINTS multiprocessing](https://pints.readthedocs.io/en/stable/function_evaluation.html#pints.ParallelEvaluator) we limit each subprocess to 500 evaluations before replacing it with a fresh one (thus freeing all its memory). 
+   Similar functionality is implemented in [multiprocessing.Pool](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool) from the standard library.
 
+### Limitations
 
+1. More complex tests cases could be tried, e.g. with sensitivities, log times, root finding, etc.
+2. I'm new to most of these tools. Experts may surprise me.
 
+### Future work
 
+To really work out if there's any memory leaks, we could run a single iteration through [valgrind](https://en.wikipedia.org/wiki/Valgrind).
+This runs your code in a VM that lets you track _everything_.
+Which could be great, or could be very confusing if you consider all the technology involved in a single Myokit simulation.
 
-
-
-
-
-#
+There's a [ticket](https://github.com/myokit/myokit/issues/871).
