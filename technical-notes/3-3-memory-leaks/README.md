@@ -220,6 +220,7 @@ to the C-code.
 This adds a single float, and doesn't decrease it's reference count so that it never gets tidied up.
 
 Over 50000 iterations, that looks like this:
+
 ![img](a1-plain-50000-leaking-1-pyfloat-per-iteration.png)
 
 The top row shows the virtual memory (total memory size, including swap), tracked with `psutil`.
@@ -240,10 +241,13 @@ On the next row we see the number of garbage collection runs (for generations 0,
 GC is never initiated during this experiment!
 
 Finally, using `tracemalloc` we plot the memory traced (not allocated!) by Python.
-This shows a clear and steady increase with each iteration.
+The left panel shows peak memory, the right panel shows current.
+We can see a clear and steady increase with each iteration.
 
 Because this last graph is so clear, we can repeat this with fewer iterations:
+
 ![img](b1-plain-500-leaking-1-pyfloat-per-iteration.png)
+
 Now we see that there is some sharp memory increase in the first ~80 iterations (some caches filling up?), after which our memory leak shows up as a clear increase in tracemalloc traced memory.
 
 ### Leaking 1 empty list per iteration
