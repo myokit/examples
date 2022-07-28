@@ -4,18 +4,18 @@ Goal: Detect memory leaks in myokit simulations (C-extensions compiled on-the-fl
 
 ## Tools:
 
-- [psutil](https://psutil.readthedocs.io)
-- [resource](https://docs.python.org/3/library/resource.html)
-- [gc](https://docs.python.org/3/library/gc.html)
-- tracemalloc
-- [pympler](https://pympler.readthedocs.io/en/latest/library/tracker.html) is a great tool that tracks Python objects and the memory they use.
+- [psutil](https://psutil.readthedocs.io) provides low-level process info.
+- [resource](https://docs.python.org/3/library/resource.html) provides maximum memory use (part of standard library).
+- [gc](https://docs.python.org/3/library/gc.html) provides information about garbage collection (part of standard library).
+- [tracemalloc](https://docs.python.org/3/library/tracemalloc.html) provides information about memory managed by Python (part of standard library since 3.4).
+- [pympler](https://pympler.readthedocs.io/en/latest/library/tracker.html) tracks Python objects and the memory they use.
 
 Summary:
 
-Using `psutil` and `resource` we can see the total process memory usage (with some caveats), but we can't learn which parts of our program are using the memory.
+Using `psutil` and `resource` we can see the total process memory usage, but we can't learn which parts of our program are using the memory.
 Some oddities in the output returned by `psutil` and `resource` are explained by looking at garbage collection via `gc`.
 Using `pympler` and `tracemalloc` we can get very detailed insight into memory usage, but only for Python objects (either in pure Python or C extenions, but not memory allocated in C).
-Since neither tool is perfect we need both.
+Since no tool is perfect we need several.
 
 ### psutil
 
@@ -137,7 +137,7 @@ It can track all Python objects currently in use, and show you the ones that wer
 This means we can track leaks of (certain!) Python objects with pympler.
 
 In particular, Pympler seems to track (1) objects that are [tracked by `gc`](https://docs.python.org/3/library/gc.html#gc.is_tracked), and (2) objects that are referenced by objects that are tracked by `gc`.
-I'm not sure that this is correct or the full story, see [case-2-tracemalloc-example.py](./case-2-tracemalloc-example.py).
+I'm not sure that this is correct or the full story, see [case-1-pympler-limitation.py](./case-1-pympler-limitation.py).
 
 However, it's a super useful tool to check if you're leaking Python objects.
 
