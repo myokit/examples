@@ -319,11 +319,19 @@ This leads to a steady increase in resident and virtual memory (again without sh
 
 ![img](b4-plain-500-leaking-100-doubles-per-iteration.png)
 
-It's not quite as clear with just 500 iterations, but still pretty visible.
+It's not quite as clear with just 500 iterations.
+Looking at the units though, you can spot half a megabyte of extra memory use in "only" 500 iterations, which could be enough to make you investigate!
+(For pride if not for practicality).
 
 ### No deliberate leaks
 
+Finally, we look at the code with no deliberate leaks:
+
 ![img](a5-plain-50000-no-deliberate-leak.png)
+
+Hmmm
+
+
 ![img](b5-plain-500-no-deliberate-leak.png)
 
 
