@@ -273,14 +273,53 @@ Again, a shorter test would suffice: we can see a clear increase in the `tracema
 
 ### Leaking 1 C double per iteration
 
+Now we add something more subtle:
+```
+realtype* x = (realtype*)malloc(sizeof(realtype) * 1);
+for(i=0; i<1; i++) {
+    x[i] = 1.23;
+}
+```
+This allocates space for 1 "realtype", an alias for a `double`.
+Note that I had to assign a value to the allocated space: without it the compiler spotted unused code and removed it!
+
+Again we try with 50000 iterations:
+
 ![img](a3-plain-50000-leaking-1-double-per-iteration.png)
+
+Now we can see a very shaky increase in RSS and max RSS, leading to an even slower increase in VMS (which includes a lot of unused space!).
+
+As expected, `gc` and `tracemalloc` don't pick up on this (no Python involved!). 
+
 ![img](b3-plain-500-leaking-1-double-per-iteration.png)
+
+Shorter tests are troublesome.
+From 500 iterations you might not guess there's a problem.
+
 ![img](c3-plain-10000-leaking-1-double-per-iteration.png)
+
+And even from 10000 iterations it's hard to be sure.
+This is the only tested case that requires* a high number of iterations.
+
+(*unless you don't care about minor memory leaks!)
 
 ### Leaking 100 C doubles per iteration
 
+Now we update the code to use 100 doubles:
+```
+realtype* x = (realtype*)malloc(sizeof(realtype) * 100);
+for(i=0; i<100; i++) {
+    x[i] = 1.23;
+}
+```
+
 ![img](a4-plain-50000-leaking-100-doubles-per-iteration.png)
+
+This leads to a steady increase in resident and virtual memory (again without showing up in the Python graphs).
+
 ![img](b4-plain-500-leaking-100-doubles-per-iteration.png)
+
+It's not quite as clear with just 500 iterations, but still pretty visible.
 
 ### No deliberate leaks
 
