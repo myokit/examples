@@ -222,13 +222,50 @@ This adds a single float, and doesn't decrease it's reference count so that it n
 Over 50000 iterations, that looks like this:
 ![img](a1-plain-50000-leaking-1-pyfloat-per-iteration.png)
 
+The top row shows the virtual memory (total memory size, including swap), tracked with `psutil`.
+The left panel shows the program total, while the right shows the increase (or decrease) since the first point.
+A clear increase is visible here, although it doesn't look smooth.
+This is probably explained by Python allocating within memory that was already part of it's VMS, so increase comes in short bursts.
 
+A similar pattern is seen on the next row, which shows resident set size (RAM usage), again tracked with `psutil`.
+Like VMS, this goes up and occasionally down for a short period, but with a clear upward trend.
+
+The next row shows _maximum RSS_, as tracked by `resource`.
+Because this is a peak value, there are no decreases, and so we see a shaky but clear increase.
+
+The next row shows the number of objects tracked by `gc`.
+This remains constant because `PyFloat` objects are not tracked.
+
+On the next row we see the number of garbage collection runs (for generations 0, 1, and 2).
+GC is never initiated during this experiment!
+
+Finally, using `tracemalloc` we plot the memory traced (not allocated!) by Python.
+This shows a clear and steady increase with each iteration.
+
+Because this last graph is so clear, we can repeat this with fewer iterations:
 ![img](b1-plain-500-leaking-1-pyfloat-per-iteration.png)
+Now we see that there is some sharp memory increase in the first ~80 iterations (some caches filling up?), after which our memory leak shows up as a clear increase in tracemalloc traced memory.
 
 ### Leaking 1 empty list per iteration
 
+Here I added
+```
+PyList_New(0);
+```
+to the C-code, to create a new but empty list.
+
 ![img](a2-plain-50000-leaking-empty-list-per-iteration.png)
+
+As before we see a shaky increase in VMS, RSS, and max RSS.
+The slope of the increase is greater, as empty lists take up more space than floats.
+
+But we also see a strong increase in the number of GC-traced items, leading to several garbage collections.
+
+As before, we see a steady increase in tracemalloc traced memory.
+
 ![img](b2-plain-500-leaking-1-empty-list-per-iteration.png)
+
+Again, a shorter test would suffice: we can see a clear increase in the `tracemalloc` graph, plus a clear increase in GC-traced objects.
 
 ### Leaking 1 C double per iteration
 
