@@ -1,6 +1,6 @@
 [[model]]
 name: paci-2013-ventricular-vs
-version: 20210825
+version: 20221031
 mmt_authors: Michael Clerx
 desc: """
     Myokit version of the 2013 hiPSC model by Paci et al., ventricular version
@@ -179,7 +179,7 @@ inf = alpha / (alpha + beta)
     beta = (-1.509 * exp(0.0002 [1/mV] * (ve + 100 [mV])) + exp(0.5886 [1/mV] * (ve - 10 [mV]))) / (1 + exp(0.4547 [1/mV] * ve))
 g = 28.1492 [S/F]
     in [S/F]
-IK1 = g * sqrt(Ko / 5.4 [mM]) * inf * (V - EK)
+IK1 = g * inf * sqrt(Ko / 5.4 [mM]) * (V - EK)
     in [A/F]
 
 #
@@ -404,9 +404,9 @@ dot(Nai) = -(ina.INa + ibna.IbNa + 3 * inak.INaK + 3 * inaca.INaCa) * Cm / (F * 
 #
 [irel]
 use calcium.Cai, calcium.CaSR
-dot(g) = (inf - g) / tau
+dot(g) = c * (inf - g) / tau
     inf = if(Cai <= 0.00035 [mM], 1 / (1 + (Cai / 0.00035 [mM])^6), 1 / (1 + (Cai / 0.00035 [mM])^16))
-    tau = 0.002 [s] / c
+    tau = 0.002 [s]
         in [s]
     c = if(inf > g and membrane.V > -0.06 [V], 0, 1)
 a_rel = 16.464 [mM/s]
@@ -473,21 +473,16 @@ Nao = 151 [mM]
 Ko = 5.4 [mM]
     in [mM]
 
-[[protocol]]
-# Level  Start    Length   Period   Multiplier
-1        0        0.005    1        0
-
 [[script]]
 import matplotlib.pyplot as plt
 import myokit
 
-# Get model and protocol, create simulation
+# Get model, create simulation
 m = get_model()
-p = get_protocol()
-s = myokit.Simulation(m, p)
+s = myokit.Simulation(m)
 
 # Run simulation
-d = s.run(1)
+d = s.run(3)
 
 # Display the results
 plt.figure()

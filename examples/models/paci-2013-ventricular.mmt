@@ -1,7 +1,7 @@
 [[model]]
 name: paci-2013-ventricular
 display_name: Paci et al., 2013 (ventricular)
-version: 20210825
+version: 20221031
 mmt_authors: Michael Clerx
 desc: """
     Myokit version of the 2013 hiPSC model by Paci et al., ventricular version
@@ -179,7 +179,7 @@ inf = alpha / (alpha + beta)
     beta = (-1.509 * exp(0.0002 [1/mV] * (V - EK + 100 [mV])) + exp(0.5886 [1/mV] * (V - EK - 10 [mV]))) / (1 + exp(0.4547 [1/mV] * (V - EK)))
 g = 0.0281492 [mS/uF]
     in [mS/uF]
-IK1 = g * sqrt(Ko / 5.4 [mM]) * inf * (V - EK)
+IK1 = g * inf * sqrt(Ko / 5.4 [mM]) * (V - EK)
     in [A/F]
 
 #
@@ -401,9 +401,9 @@ dot(Nai) = -(ina.INa + ibna.IbNa + 3 * inak.INaK + 3 * inaca.INaCa) * Cm / (F * 
 #
 [irel]
 use calcium.Cai, calcium.CaSR
-dot(g) = (inf - g) / tau
+dot(g) = c * (inf - g) / tau
     inf = if(Cai <= 0.00035 [mM], 1 / (1 + (Cai / 0.00035 [mM])^6), 1 / (1 + (Cai / 0.00035 [mM])^16))
-    tau = 2 [ms] / c
+    tau = 2 [ms]
         in [ms]
     c = if(inf > g and membrane.V > -60 [mV], 0, 1)
 a_rel = 0.016464 [mM/ms]
@@ -470,21 +470,16 @@ Nao = 151 [mM]
 Ko = 5.4 [mM]
     in [mM]
 
-[[protocol]]
-# Level  Start    Length   Period   Multiplier
-1        0        5        1000     0
-
 [[script]]
 import matplotlib.pyplot as plt
 import myokit
 
-# Get model and protocol, create simulation
+# Get model, create simulation
 m = get_model()
-p = get_protocol()
-s = myokit.Simulation(m, p)
+s = myokit.Simulation(m)
 
 # Run simulation
-d = s.run(1000)
+d = s.run(3000)
 
 # Display the results
 plt.figure()
