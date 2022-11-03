@@ -60,7 +60,7 @@ Software developers may also want to check out Myokit's [github repository](http
 
 2. Implementing models
     - [ ] Validating the model structure
-    - [ ] Verifying model output with step
+    - [ ] Verifying model output with step (from code, against stored from other data, against other mmt files from command line)
     - [ ] Checking model units
 
 3. Creating and manipulating models from the API
