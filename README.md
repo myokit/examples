@@ -74,10 +74,13 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Quantities
     - [ ] Unit conversion
 
-5. Getting information about existing models
+5. Advanced model operations
+    - [ ] Info about variables
+    - [ ] Info about variable evaluation
     - [ ] Getting functions with pyfunc
+    - [ ] Note: Myokit is not a CAS (`x = x-x` is cyclical, `x=y/y` depends on y, `dot(x) = 0; y=dot(x)` makes y depend on x and t)
 
-5. Working with multiple models
+6. Working with multiple models
     - [ ] Identifying common variables
     - [ ] Unit conversion
     - [ ] "Clamping" a variable
