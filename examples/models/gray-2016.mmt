@@ -47,12 +47,15 @@ pace = 0
 # Membrane potential
 #
 [membrane]
-dot(V) = -C * (i_ion + stimulus.i_stim)
+dot(V) = -C * (i_ion + i_diff + stimulus.i_stim)
     in [mV]
     label membrane_potential
 C = 1
 i_ion = ina.INa + ik.IK
     in [A/F]
+i_diff = 0 [A/F]
+    in [A/F]
+    bind diffusion_current
 
 #
 # Stimulus
