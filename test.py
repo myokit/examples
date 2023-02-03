@@ -151,8 +151,7 @@ def check_links(root, path):
     """
     # Non-local link roots to convert to local root
     convert = [
-        'https://nbviewer.jupyter.org/github/MichaelClerx/myokit-examples/'
-        'blob/main/',
+        'https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/'
     ]
 
     # Load contents
