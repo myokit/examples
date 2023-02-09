@@ -283,7 +283,7 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 
 ## Myokit publications
 
-- PBMB examples (http://myokit.org/publications/pbmb-2016)
+- PBMB examples (http://github.com/myokit/pbmb-2016)
 
 ## Tutorials
 
