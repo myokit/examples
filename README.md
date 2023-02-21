@@ -63,22 +63,28 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Verifying model output with step (from code, against stored from other data, against other mmt files from command line)
     - [ ] Checking model units
 
-3. Creating and manipulating models from the API
-    - [ ] Create model, add component, variables, equations, units, labels
-    - [ ] Promoting/demoting
-    - [ ] State order
-
-4. Units
+3. Units
     - [ ] Unit objects
     - [ ] Predefined units
     - [ ] Quantities
     - [ ] Unit conversion
+    - [ ] Representations?
 
-5. Advanced model operations
+4. Creating and manipulating models from the API
+    - [ ] Create model, add component, variables, equations, units, labels
+    - [ ] Promoting/demoting, state order
+    - [ ] Validation 
+    - [ ] Note: API allows you to build invalid models, by design
+    - [ ] Note: Myokit is not a CAS (`x = x-x` is cyclical, `x=y/y` depends on y, `dot(x) = 0; y=dot(x)` makes y depend on x and t)   
+    - [ ] Moving (and renaming)
+    - [ ] Importing components?
+    - [ ] Differentiation? Init() type
+
+5. Querying models
     - [ ] Info about variables
     - [ ] Info about variable evaluation
-    - [ ] Getting functions with pyfunc
-    - [ ] Note: Myokit is not a CAS (`x = x-x` is cyclical, `x=y/y` depends on y, `dot(x) = 0; y=dot(x)` makes y depend on x and t)
+    - [ ] Dependency stuff? Graphs?
+    - [ ] Getting/graphing functions with pyfunc
 
 6. Working with multiple models
     - [ ] Identifying common variables
