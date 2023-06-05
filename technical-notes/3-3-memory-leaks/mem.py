@@ -224,6 +224,18 @@ def case(name='plain'):
             s.reset()
             s.run(20, log_times=lt)
 
+    elif name == 'fixed_form':
+        # Time series protocol
+        import numpy as np
+        t = np.arange(0, 1001, 1)
+        v = 0.1 + 0.1 * np.sin(t / 40)
+        tsp = myokit.TimeSeriesProtocol(t, v)
+        s = myokit.Simulation(m, tsp)
+
+        def c():
+            s.reset()
+            s.run(10)
+
     else:
         raise ValueError(f'Unknown test: simulation {name}')
 
