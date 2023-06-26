@@ -269,10 +269,12 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 2. **Simulation test case: HH ion channel model**
   [![View on github](img/github.svg)](technical-notes/2-2-test-case-hh-current.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-2-test-case-hh-current.ipynb)
-3. **Simulation test case: PK model**
+3. **Simulation test case: PK model with sensitivities**
   [![View on github](img/github.svg)](technical-notes/2-3-test-case-pk-model.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-3-test-case-pk-model.ipynb)
-4. **Autodiff simulations**
+4. **Simulation test case: Logistic model with parameters in initial conditions**
+  [![View on github](img/github.svg)](technical-notes/2-4-test-case-logistic-model.ipynb)
+6. **Autodiff simulations**
   [![View on github](img/github.svg)](technical-notes/2-x-autodiff.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-x-autodiff.ipynb)
 
