@@ -8,10 +8,7 @@ These example notebooks show how [Myokit](http://myokit.org) can be used in a va
 They accompany the detailed information on the individual classes and methods found in the [API documentation](https://myokit.readthedocs.io).
 Software developers may also want to check out Myokit's [github repository](https://github.com/myokit/myokit/).
 
-- **Before you begin**: 
-
-
-## 0. Before you begin
+### Before you begin
 
 1. **How to use these notebooks**: If you're not sure how to use these examples, start here.
    [![View on github](img/github.svg)](examples/0-1-before-you-begin.ipynb)
