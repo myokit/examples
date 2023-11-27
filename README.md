@@ -8,9 +8,18 @@ These example notebooks show how [Myokit](http://myokit.org) can be used in a va
 They accompany the detailed information on the individual classes and methods found in the [API documentation](https://myokit.readthedocs.io).
 Software developers may also want to check out Myokit's [github repository](https://github.com/myokit/myokit/).
 
-- **Before you begin**: If you're not sure how to use these examples, start here.
+- **Before you begin**: 
+
+
+## 0. Before you begin
+
+1. **How to use these notebooks**: If you're not sure how to use these examples, start here.
    [![View on github](img/github.svg)](examples/0-1-before-you-begin.ipynb)
    [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/examples/0-1-before-you-begin.ipynb)
+
+2. **Installation instructions**: These are currently at http://myokit.org/install, but will be moved here eventually.
+
+3. **Quick start guide**: This section will provide quick start guide based on real life examples, without going into technical detail. For users who prefer to jump in at the deep end! Will be based on [existing tutorials](http://myokit.org/tutorial/).
 
 ## 1. Running simulations
 
@@ -169,6 +178,8 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Discrete simulation
 
 0. Examples of fitting ionic currents and fitting conductances: [ion channel fitting notebooks](https://github.com/CardiacModelling/fitting-notebooks)
+
+0. Link to [artefacts notebooks](https://github.com/CardiacModelling/fitting-notebooks/tree/artefacts/artefacts)
 
 ## 7. Multi-cell simulations
 
