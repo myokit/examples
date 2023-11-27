@@ -1,6 +1,6 @@
 # Work in progress!
 
-*More examples can be found on:* http://myokit.org/examples/
+*This page lists the planned jupyter notebook-based examples. In time this will replace [the current example page](http://myokit.org/examples/) at myokit.org.*
 
 ## Using Myokit
 
