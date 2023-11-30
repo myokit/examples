@@ -16,7 +16,7 @@ Software developers may also want to check out Myokit's [github repository](http
 
 2. **Installation instructions**: These are currently at http://myokit.org/install, but will be moved here eventually.
 
-3. **Quick start guide**: This section will provide quick start guide based on real life examples, without going into technical detail. For users who prefer to jump in at the deep end! Will be based on [existing tutorials](http://myokit.org/tutorial/).
+3. **Quick start guide**: This section will provide quick start guide based on real life examples, without going into technical detail. For users who prefer to jump in at the deep end! Will be based on [existing tutorials](http://myokit.org/tutorial/). Most likely there will be 1 to 3 quick start guides, each on a different topic, letting users jump straight into their area of interest. A 4th should very quickly show how the basics discussed in 3.4 and 3.6 can help you make your published code more reproducible.
 
 ## 1. Running simulations
 
@@ -93,7 +93,8 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Getting/graphing functions with pyfunc
 
 6. Working with multiple models
-    - [ ] Identifying common variables
+    - [ ] Identifying common variables with annotations
+    - [ ] A shared ontology?
     - [ ] Unit conversion
     - [ ] "Clamping" a variable
     - [ ] Importing components
@@ -215,6 +216,25 @@ Software developers may also want to check out Myokit's [github repository](http
 6. Simulating arbitrary geometries
     - [ ] set_connections
 
+## 7. Publishing your Myokit work
+
+1. Tactics for reproducibility
+    - [ ] One file per figure (or other result)
+    - [ ] One `mmt` file per model - or no new model code at all! --> link back to Working with multiple models
+    - [ ] What to include (mention MIASE and MICEE), but also Myokit version no., Python version no. Sundials version no. Show how to get from `myokit system` command
+
+2. "Freezing dependencies"
+    - [ ] Using virtual environments (1, with conda; 2, with virtualenv)
+    - [ ] Using docker
+
+3. Github and Zenodo
+   - [ ] Getting a DOI for your model code
+
+4. Uploading a model to PMR
+    - [ ] CellML export
+    - [ ] Editing/annotation in COR, if desired?
+    - [ ] https://github.com/CardiacModelling/cellml-repo-updates
+
 ## Appendix
 
 0. Using Matplotlib, see https://myokit.readthedocs.io/en/stable/guide/matplotlib.html
@@ -223,6 +243,7 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Then with subplots, and subplots_adjust
     - [ ] Then with gridspec
     - [ ] Then stop.
+    - [ ] Alternatively replace this whole section with a link to https://github.com/MichaelClerx/making-figures/
 
 0. Using NumPy
     - [ ] Discuss log.npview() ?
