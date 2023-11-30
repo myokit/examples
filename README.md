@@ -16,7 +16,7 @@ Software developers may also want to check out Myokit's [github repository](http
 
 2. **Installation instructions**: These are currently at http://myokit.org/install, but will be moved here eventually.
 
-3. **Quick start guide**: This section will provide quick start guide based on real life examples, without going into technical detail. For users who prefer to jump in at the deep end! Will be based on [existing tutorials](http://myokit.org/tutorial/). Most likely there will be 1 to 3 quick start guides, each on a different topic, letting users jump straight into their area of interest. A 4th should very quickly show how the basics discussed in 3.4 and 3.6 can help you make your published code more reproducible.
+3. **Quick start guide**: This section will provide quick start guide based on real life examples, without going into technical detail. For users who prefer to jump in at the deep end! Will be based on [existing tutorials](http://myokit.org/tutorial/). Most likely there will be 1 to 3 quick start guides, each on a different topic, letting users jump straight into their area of interest. A 4th should very quickly show how the basics discussed in 3.4, 3.6, and 8 to help make your published code more reproducible.
 
 ## 1. Running simulations
 
@@ -216,7 +216,7 @@ Software developers may also want to check out Myokit's [github repository](http
 6. Simulating arbitrary geometries
     - [ ] set_connections
 
-## 7. Publishing your Myokit work
+## 8. Publishing your Myokit work
 
 1. Tactics for reproducibility
     - [ ] One file per figure (or other result)
