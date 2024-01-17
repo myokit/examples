@@ -37,7 +37,13 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Absolute and relative tolerance
     - [ ] Max time step
 
-5. Root-finding and sensitivities
+5. Discontinuities
+    - [ ] Plotting discontinuities
+    - [ ] Using protocols tells the solver about discontinuities
+    - [ ] Not using protocols? Max time step
+    - [ ] TimeSeriesProtocols interpolate!
+
+7. Root-finding and sensitivities
     - [ ] Tracking an action potential duration
     - [ ] Obtaining sensitivities
 
@@ -133,7 +139,7 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] MMT syntax, link to full
     - [ ] API
     - [ ] pacing factories
-    - [ ] AP clamp
+    - [ ] AP clamp --> interpolation!
     - [ ] Models without pacing (Purkinje)
 
 2. Calculating APDs
@@ -162,7 +168,7 @@ Software developers may also want to check out Myokit's [github repository](http
 2. Applying complex waveforms
     - [ ] Steps and ramps
     - [ ] Steps and sine waves
-    - [ ] Data clamp (AP clamp)
+    - [ ] Data clamp (AP clamp) --> do not use for discontinuous!
 
 3. Hodgkin-Huxley models
     - [ ] CVODES sim
