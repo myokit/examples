@@ -128,9 +128,10 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Exporting for presentations: latex / html
 
 5. Using data formats
-    - [ ] Importing patch clamp data
+    - [ ] Importing patch clamp data: native interface and conversion to log
+    - [ ] Importing patch clamp meta data (native & in log)
     - [ ] DataLog viewer
-    - [ ] Importing protocols from ABF
+    - [ ] Importing protocols from ABF and HEKA
     - [ ] Exporting patch clamp protocols? (ATF)
 
 ## 5. Single-cell simulations
@@ -169,6 +170,10 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] Steps and ramps
     - [ ] Steps and sine waves
     - [ ] Data clamp (AP clamp) --> do not use for discontinuous!
+
+X. Analysing results
+    - [ ] Splitting, trimming, etc
+    - [ ] Comparing with real data?
 
 3. Hodgkin-Huxley models
     - [ ] CVODES sim
