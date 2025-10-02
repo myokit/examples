@@ -127,13 +127,6 @@ Software developers may also want to check out Myokit's [github repository](http
 4. Exporting presentation formats
     - [ ] Exporting for presentations: latex / html
 
-5. Using data formats
-    - [ ] Importing patch clamp data: native interface and conversion to log
-    - [ ] Importing patch clamp meta data (native & in log)
-    - [ ] DataLog viewer
-    - [ ] Importing protocols from ABF and HEKA
-    - [ ] Exporting patch clamp protocols? (ATF)
-
 ## 5. Single-cell simulations
 
 1. Protocols for periodic pacing
@@ -173,7 +166,7 @@ Software developers may also want to check out Myokit's [github repository](http
 
 X. Analysing results
     - [ ] Splitting, trimming, etc
-    - [ ] Comparing with real data?
+    - [ ] Comparing with real data? (also: sweeps etc.!)
 
 3. Hodgkin-Huxley models
     - [ ] CVODES sim
@@ -226,6 +219,16 @@ X. Analysing results
 
 6. Simulating arbitrary geometries
     - [ ] set_connections
+  
+## X. Working with data
+
+1. Using patch clamp data
+    - [ ] Importing patch clamp data: native interface and conversion to log
+    - [ ] Importing patch clamp meta data (native & in log)
+    - [ ] DataLog viewer
+    - [ ] Importing protocols from ABF and HEKA
+    - [ ] Exporting patch clamp protocols? (ATF)
+    - [ ] Sweeps etc.
 
 ## 8. Publishing your Myokit work
 
