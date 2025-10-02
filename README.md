@@ -220,15 +220,24 @@ X. Analysing results
 6. Simulating arbitrary geometries
     - [ ] set_connections
   
-## X. Working with data
+## X. Working with time series data
 
-1. Using patch clamp data
-    - [ ] Importing patch clamp data: native interface and conversion to log
-    - [ ] Importing patch clamp meta data (native & in log)
-    - [ ] DataLog viewer
-    - [ ] Importing protocols from ABF and HEKA
-    - [ ] Exporting patch clamp protocols? (ATF)
-    - [ ] Sweeps etc.
+1. DataLog viewer
+    - [ ] Loading DataLogs (note about DataBlocks)
+    - [ ] Myokit's ZIP format + meta
+    - [ ] Myokit's CSV format + meta
+    - [ ] Working with sweeps in a data log (as sweeps, w/o sweeps; fold() and split_periodic(); sweeps as DataBlock?)
+
+2. Using Axon patch clamp data
+    - [ ] Sweeps etc., in native interface
+    - [ ] Protocols and other meta data
+    - [ ] SweepSource interface
+    - [ ] Exporting protocols to ATF
+
+3. Using Patchmaster patch clamp data
+    - [ ] Native interface
+    - [ ] Protocols and other meta data
+    - [ ] SweepSource interface
 
 ## 8. Publishing your Myokit work
 
