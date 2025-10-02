@@ -159,7 +159,11 @@ Software developers may also want to check out Myokit's [github repository](http
     - [ ] with pacing factory
     - Link to fitting tutorial. Or even move those bits here?
 
-2. Applying complex waveforms
+X. Dealing with "sweeps"
+    - [ ] DataLog split_periodic() (deprecate?) and fold()
+    - [ ] Indexing, keys_like()
+
+X. Applying complex waveforms
     - [ ] Steps and ramps
     - [ ] Steps and sine waves
     - [ ] Data clamp (AP clamp) --> do not use for discontinuous!
@@ -194,7 +198,7 @@ X. Analysing results
 
 2. Viewing multi-cell simulation results
     - [ ] Storing CSV log
-    - [ ] Converting to block
+    - [ ] Converting to block (VariableInfo)
     - [ ] Writing block (txt vs zip)
     - [ ] Displaying with DataBlock viewer
     - [ ] Movies
@@ -226,7 +230,7 @@ X. Analysing results
     - [ ] Loading DataLogs (note about DataBlocks)
     - [ ] Myokit's ZIP format + meta
     - [ ] Myokit's CSV format + meta
-    - [ ] Working with sweeps in a data log (as sweeps, w/o sweeps; fold() and split_periodic(); sweeps as DataBlock?)
+    - [ ] Working with sweeps in a data log (fold(); indexing; keys_like; sweeps as DataBlock?)
 
 2. Using Axon patch clamp data
     - [ ] Sweeps etc., in native interface
