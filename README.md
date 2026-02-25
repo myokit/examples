@@ -243,7 +243,7 @@ X. Analysing results
     - [ ] Protocols and other meta data
     - [ ] SweepSource interface
 
-## 8. Publishing your Myokit work
+## 8. Reproducibly publishing your work
 
 1. Tactics for reproducibility
     - [ ] One file per figure (or other result)
