@@ -356,7 +356,7 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
 
 ## Contributors
 
-These examples, tutorials and technical notes were created by Michael Clerx, with contributions from David Augustin and Enno de Lange, and feedback from several others.
+These examples, tutorials and technical notes were created by Michael Clerx, with contributions from Frankie Patten-Elliott, David Augustin and Enno de Lange, and feedback from several others.
 
 ## License and re-use
 
