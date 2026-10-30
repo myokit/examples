@@ -344,6 +344,10 @@ These notebooks have not been reviewed or checked extensively, so some errors ma
    [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-2-equality-hashes-and-pickling.ipynb)
 3. **Memory leaks**
    [![View with github Markdown viewer](img/github.svg)](technical-notes/3-3-memory-leaks/README.md)
+4. Cycle checking and validation
+5. **Paths and normalisation**
+   [![View on github](img/github.svg)](technical-notes/3-5-paths.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-5-paths.ipynb)
 
 ## Myokit publications
 
