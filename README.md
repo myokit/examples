@@ -293,57 +293,79 @@ X. Analysing results
 
 This section contains notebooks that explain or define some of the trickier parts in Myokit.
 They are used in Myokit development, and document tricky decisions made along the way.
-These notebooks have not been reviewed or checked extensively, so some errors may be present.
+These notebooks are often unfinished, and have not been reviewed or checked extensively, so some errors may be present.
 
-1. **Pacing**
-   [![View on github](img/github.svg)](technical-notes/1-1-pacing.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-1-pacing.ipynb)
-2. **Logging**
-   [![View on github](img/github.svg)](technical-notes/1-2-logging.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-2-logging.ipynb)
-3. **CVODE(s) single-cell simulations**
-   [![View on github](img/github.svg)](technical-notes/1-3-cvodes-simulation.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-3-cvodes-simulation.ipynb)
-4. **OpenCL multi-cell simulations**
-   [![View on github](img/github.svg)](technical-notes/1-4-opencl-simulation.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-4-opencl-simulation.ipynb)
-5. **HH channel models**
-   [![View on github](img/github.svg)](technical-notes/1-5-hh-channels.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-5-hh-channels.ipynb)
-6. **Markov channel models**
-   [![View on github](img/github.svg)](technical-notes/1-6-markov-channels.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-6-markov-channels.ipynb)
-7. **Rush-Larsen updates**
-   [![View on github](img/github.svg)](technical-notes/1-7-rush-larsen.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-7-rush-larsen.ipynb)
-
-### Simulation test cases
-   
-1. **Simple model**
-  [![View on github](img/github.svg)](technical-notes/2-1-test-case-simple.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-1-test-case-simple.ipynb)
-2. **Simulation test case: HH ion channel model**
-  [![View on github](img/github.svg)](technical-notes/2-2-test-case-hh-current.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-2-test-case-hh-current.ipynb)
-3. **Simulation test case: PK model with sensitivities**
-  [![View on github](img/github.svg)](technical-notes/2-3-test-case-pk-model.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-3-test-case-pk-model.ipynb)
-4. **Simulation test case: Logistic model with parameters in initial conditions**
-  [![View on github](img/github.svg)](technical-notes/2-4-test-case-logistic-model.ipynb)
-6. **Autodiff simulations**
-  [![View on github](img/github.svg)](technical-notes/2-x-autodiff.ipynb)
-  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-x-autodiff.ipynb)
+1. **Model structure and scoping**
+   [![View on github](img/github.svg)](technical-notes/1-1-models.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-1-models.ipynb)
+2. **Variable types**
+   [![View on github](img/github.svg)](technical-notes/1-2-variables.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-2-variables.ipynb)
+3. **Cycle checking**
+   [![View on github](img/github.svg)](technical-notes/1-3-cycles.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-3-cycles.ipynb)
 
 ### Python details 
 
 1. **Float precision, units, and pacing**
-   [![View on github](img/github.svg)](technical-notes/3-1-floats-units-and-pacing.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-1-floats-units-and-pacing.ipynb)
+   [![View on github](img/github.svg)](technical-notes/2-1-floats-units-and-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-1-floats-units-and-pacing.ipynb)
 2. **Equality, hashes & pickling**
-   [![View on github](img/github.svg)](technical-notes/3-2-equality-hashes-and-pickling.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-2-equality-hashes-and-pickling.ipynb)
+   [![View on github](img/github.svg)](technical-notes/2-2-equality-hashes-and-pickling.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-2-equality-hashes-and-pickling.ipynb)
 3. **Memory leaks**
-   [![View with github Markdown viewer](img/github.svg)](technical-notes/3-3-memory-leaks/README.md)
+   [![View with github Markdown viewer](img/github.svg)](technical-notes/2-3-memory-leaks/README.md)
+
+### Single cell simulation
+
+1. **Pacing**
+   [![View on github](img/github.svg)](technical-notes/3-1-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-1-pacing.ipynb)
+2. **Logging**
+   [![View on github](img/github.svg)](technical-notes/3-2-logging.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-2-logging.ipynb)
+3. **CVODE(s) single-cell simulations**
+   [![View on github](img/github.svg)](technical-notes/3-3-cvodes-simulation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-3-cvodes-simulation.ipynb)
+4. **CVODE(s) simulation and initial values**
+   [![View on github](img/github.svg)](technical-notes/3-4-cvodes-initial-values.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-4-cvodes-initial-values.ipynb)
+
+### Multi-cell simulation
+
+1. **OpenCL multi-cell simulations**
+   [![View on github](img/github.svg)](technical-notes/4-1-opencl-simulation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/4-1-opencl-simulation.ipynb)
+
+### Current-level simulation
+
+1. **HH channel models**
+   [![View on github](img/github.svg)](technical-notes/5-1-hh-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/5-1-hh-channels.ipynb)
+2. **Rush-Larsen updates**
+   [![View on github](img/github.svg)](technical-notes/5-2-rush-larsen.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/5-2-rush-larsen.ipynb)
+3. **Markov channel models**
+   [![View on github](img/github.svg)](technical-notes/5-3-markov-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/5-3-markov-channels.ipynb)
+3. **Markov model builder**
+   [![View on github](img/github.svg)](technical-notes/5-4-markov-channels.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/5-4-markov-channels.ipynb)
+
+### Simulation test cases
+   
+1. **Simple model**
+  [![View on github](img/github.svg)](technical-notes/t-1-test-case-simple.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/t-1-test-case-simple.ipynb)
+2. **Simulation test case: HH ion channel model**
+  [![View on github](img/github.svg)](technical-notes/t-2-test-case-hh-current.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/t-2-test-case-hh-current.ipynb)
+3. **Simulation test case: PK model with sensitivities**
+  [![View on github](img/github.svg)](technical-notes/t-3-test-case-pk-model.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/t-3-test-case-pk-model.ipynb)
+4. **Simulation test case: Logistic model with parameters in initial conditions**
+  [![View on github](img/github.svg)](technical-notes/t-4-test-case-logistic-model.ipynb)
+  [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/t-4-test-case-logistic-model.ipynb)
 
 ## Myokit publications
 
