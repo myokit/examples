@@ -301,9 +301,9 @@ These notebooks are often unfinished, and have not been reviewed or checked exte
 2. **Variable types**
    [![View on github](img/github.svg)](technical-notes/1-2-variables.ipynb)
    [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-2-variables.ipynb)
-3. **Cycle checking**
-   [![View on github](img/github.svg)](technical-notes/1-3-cycles.ipynb)
-   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-3-cycles.ipynb)
+3. **Model validation**
+   [![View on github](img/github.svg)](technical-notes/1-3-validation.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/1-3-validation.ipynb)
 
 ### Python details 
 
