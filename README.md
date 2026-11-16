@@ -315,6 +315,9 @@ These notebooks are often unfinished, and have not been reviewed or checked exte
    [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-2-equality-hashes-and-pickling.ipynb)
 3. **Memory leaks**
    [![View with github Markdown viewer](img/github.svg)](technical-notes/2-3-memory-leaks/README.md)
+4. **Paths and normalisation**
+   [![View on github](img/github.svg)](technical-notes/2-4-paths.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/2-4-paths.ipynb)
 
 ### Single cell simulation
 
@@ -366,6 +369,23 @@ These notebooks are often unfinished, and have not been reviewed or checked exte
 4. **Simulation test case: Logistic model with parameters in initial conditions**
   [![View on github](img/github.svg)](technical-notes/t-4-test-case-logistic-model.ipynb)
   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/t-4-test-case-logistic-model.ipynb)
+
+
+
+### Python details 
+
+1. **Float precision, units, and pacing**
+   [![View on github](img/github.svg)](technical-notes/3-1-floats-units-and-pacing.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-1-floats-units-and-pacing.ipynb)
+2. **Equality, hashes & pickling**
+   [![View on github](img/github.svg)](technical-notes/3-2-equality-hashes-and-pickling.ipynb)
+   [![View on nbviewer](img/nbviewer.svg)](https://nbviewer.jupyter.org/github/myokit/myokit-examples/blob/main/technical-notes/3-2-equality-hashes-and-pickling.ipynb)
+3. **Memory leaks**
+   [![View with github Markdown viewer](img/github.svg)](technical-notes/3-3-memory-leaks/README.md)
+4. Cycle checking and validation
+
+>>>>>>> main
+
 
 ## Myokit publications
 
